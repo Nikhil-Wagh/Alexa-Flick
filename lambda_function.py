@@ -1,6 +1,7 @@
 import re
 import urllib2
 import jellyfish
+import random
 
 class BookMyShowClient(object):
   NOW_SHOWING_REGEX = '{"event":"productClick","ecommerce":{"currencyCode":"INR","click":{"actionField":{"list":"Filter Impression:category\\\/now showing"},"products":\[{"name":"(.*?)","id":"(.*?)","category":"(.*?)","variant":"(.*?)","position":(.*?),"dimension13":"(.*?)"}\]}}}'
@@ -52,11 +53,19 @@ def on_intent(request):
 			if 'Intent' in request['session']['attributes']:
 				function = request['session']['attributes']['Intent']
 				if function == 'GetMovieList':
-					GetMovieList(intent)
+					return GetMovieList(intent)
 
 	if intent_name == 'GetMovieList':
 		return GetMovieList(intent)
-
+	elif intent_name == "AMAZON.HelpIntent":
+		return do_help()
+	elif intent_name == "AMAZON.StopIntent":
+		return do_stop(attributes)
+	elif intent_name == "AMAZON.CancelIntent":
+		return do_stop()
+	else:
+		print ("Invalid Intent reply with help")
+		do_help()
 
 def GetMovieList(intent):
 	movieName = getSlotValue(intent, 'NAME')
@@ -67,31 +76,57 @@ def GetMovieList(intent):
 	if location != -1:
 		bms_client = BookMyShowClient(location)
 		if when != 'COMMING_SOON':
-			now_showing = bms_client.get_now_showing()
-			if movieName != -1:
-				for movie_info in now_showing:
-					if jellyfish.damerau_levenshtein_distance(movieName.lower(), movie_info[0].lower()) > 0.8:
-						result.append(movie_info)
+			try:
+				now_showing = bms_client.get_now_showing()
+			except Exception as e: # Error
+				print(e.args)
+				print(type(e))
+				return response_plain_text(
+						"Something went wrong, I'm terribly sorry",
+						True,
+						{},
+						"Error",
+						"I could not process your request at the moment.",
+						"Please try again. I would love to hear from you again"
+					)
 			else:
-				result.append(movie_info)
+				if movieName != -1:
+					for movie_info in now_showing:
+						if jellyfish.damerau_levenshtein_distance(movieName.lower(), movie_info[0].lower()) > 0.8:
+							result.append(movie_info)
+				else:
+					result.append(movie_info)
 		else:
-			coming_soon = bms_client.get_coming_soon()
-			if movieName != -1:
-				for movie_info in coming_soon:
-					if jellyfish.damerau_levenshtein_distance(movieName.lower(), movie_info[0].lower()) > 0.8:
-						result.append(movie_info)
+			try:
+				coming_soon = bms_client.get_coming_soon()
+			except Exception as e:
+				print(e.args)
+				print(type(e))
+				return response_plain_text(
+						"Something went wrong, I'm terribly sorry",
+						True,
+						{},
+						"Error",
+						"I could not process your request at the moment.",
+						"Please try again. I would love to hear from you again"
+					)
 			else:
-				result.append(movie_info)
+				if movieName != -1:
+					for movie_info in coming_soon:
+						if jellyfish.damerau_levenshtein_distance(movieName.lower(), movie_info[0].lower()) > 0.8:
+							result.append(movie_info)
+				else:
+					result.append(movie_info)
 	else:
 		attributes = {
 			'Intent' : 'GetMovieList'
 		}
-		return response_plain_text("Please provide the location", False, attributes, "No location", "Found too many results", "I'm efficient if you provide me your locatoin")
+		return response_plain_text("Please provide the location", False, attributes, "No location", "Found too many results", "I'm efficient if you provide me your location")
 
 
 	outputSpeech = "These are the movies which are showing in your area " 
 	for r in result:
-		outputSpeech += r[0] + " which is showed in " + r[3] + " and the language is " + r[5]
+		outputSpeech += r[0] + " which is showed in dimension " + r[3] + " and the language is " + r[5]
 
 	return response_plain_text(outputSpeech, False, {}, str(len(result)) + " movies showing", result)
 
@@ -123,17 +158,42 @@ def response_plain_text(output, endsession, attributes, title, cardContent, repr
     }
 
 
-# if __name__ == '__main__':
-#   # Test code.
-#   bms_client = BookMyShowClient('Bengaluru')
-#   now_showing = bms_client.get_now_showing()
-
-
-
 def getSlotValue(intent, slot):
 	if 'slots' in intent:
 		if slot in intent['slots']:
 			return intent['slots'][slot]['value']
 	
 	return -1
+
+
+def getRandom(messages):
+    return messages[random.randint(0, len(messages))] 
+
+def do_help():
+	Messages = [
+		"You can say 'tell me about the upcoming movies'",
+		"You can ask for movies now showing",
+		"You can ask for a movies showing in particular language"
+	]
+	return response_plain_text(
+			getRandom(Messages),
+			False,
+			{},
+			"Flick - Get the movies you want",
+			"What can I do for you?",
+			"I would love to hear from you"
+		)
+
+def do_stop():
+	Messages = [
+		"Good Bye!!"
+	]
+	return response_plain_text(
+			getRandom(Messages),
+			True,
+			{},
+			"TATA",
+			"We hope to see you again.",
+			"Is there anything I can do for you?"
+		)
 
