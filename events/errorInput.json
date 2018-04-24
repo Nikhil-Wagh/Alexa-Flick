@@ -1,0 +1,123 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": false,
+		"sessionId": "amzn1.echo-api.session.4905fe32-edbb-4827-be45-707e69fbc66a",
+		"application": {
+			"applicationId": "amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db"
+		},
+		"attributes": {
+			"requestId": "amzn1.echo-api.request.1f3157af-eb29-47e0-a3ad-21f838419ad0",
+			"dialogState": "STARTED",
+			"locale": "en-IN",
+			"type": "IntentRequest",
+			"intent": {
+				"slots": {
+					"CITY": {
+						"name": "CITY",
+						"value": "pune",
+						"confirmationStatus": "NONE"
+					},
+					"LANGUAGE": {
+						"resolutions": {
+							"resolutionsPerAuthority": [
+								{
+									"status": {
+										"code": "ER_SUCCESS_MATCH"
+									},
+									"values": [
+										{
+											"value": {
+												"name": "english",
+												"id": "1"
+											}
+										}
+									],
+									"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.RegionalLanguage"
+								}
+							]
+						},
+						"name": "LANGUAGE",
+						"value": "English",
+						"confirmationStatus": "NONE"
+					}
+				},
+				"name": "GetMoviesNowShowing",
+				"confirmationStatus": "NONE"
+			},
+			"timestamp": "2018-04-24T22:37:18Z"
+		},
+		"user": {
+			"userId": "amzn1.ask.account.AFHG3ZTUSMZRO3ELD3WRVOQ4TUGSXBNJUM4XMDARNLV3RD6B3LBWTZ6AYGNFLZ2HSGOY4O4DTILYYLE52K66ZHSMWWAOOV4PHONHVJXWGUDCGEG5ARGILWI3VMRWRGENWSDVVLMLAHTQU4TTOV2W3ZEHMWYA2I66N54S3HFLKO3J7WOOG6TV2ZGO3ZVQ7SBEZ36W4FGFEQO26MQ"
+		}
+	},
+	"context": {
+		"AudioPlayer": {
+			"playerActivity": "IDLE"
+		},
+		"Display": {
+			"token": ""
+		},
+		"System": {
+			"application": {
+				"applicationId": "amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db"
+			},
+			"user": {
+				"userId": "amzn1.ask.account.AFHG3ZTUSMZRO3ELD3WRVOQ4TUGSXBNJUM4XMDARNLV3RD6B3LBWTZ6AYGNFLZ2HSGOY4O4DTILYYLE52K66ZHSMWWAOOV4PHONHVJXWGUDCGEG5ARGILWI3VMRWRGENWSDVVLMLAHTQU4TTOV2W3ZEHMWYA2I66N54S3HFLKO3J7WOOG6TV2ZGO3ZVQ7SBEZ36W4FGFEQO26MQ"
+			},
+			"device": {
+				"deviceId": "amzn1.ask.device.AHFZTJ2KCRGA6NAMNGMYQMX72XFOZNMERBDWTATJIB7TWUDZ442SAHPFFLVXSARRTAJIHHE3PWGS7QLDZBBPRODJAMWQWDAVIC2USLDWEVC4S27FPFQSRUVVOJ2D5OGILPQAXPLQUORANGMAXRH4M6VUIGHQ",
+				"supportedInterfaces": {
+					"AudioPlayer": {},
+					"Display": {
+						"templateVersion": "1.0",
+						"markupVersion": "1.0"
+					}
+				}
+			},
+			"apiEndpoint": "https://api.eu.amazonalexa.com",
+			"apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmNjMDc5MjRlLTU1MTktNGJlOS04NTRmLWVlYWYwNzIwYTRkYiIsImV4cCI6MTUyNDYxMzA0OSwiaWF0IjoxNTI0NjA5NDQ5LCJuYmYiOjE1MjQ2MDk0NDksInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUhGWlRKMktDUkdBNk5BTU5HTVlRTVg3MlhGT1pOTUVSQkRXVEFUSklCN1RXVURaNDQyU0FIUEZGTFZYU0FSUlRBSklISEUzUFdHUzdRTERaQkJQUk9ESkFNV1FXREFWSUMyVVNMRFdFVkM0UzI3RlBGUVNSVVZWT0oyRDVPR0lMUFFBWFBMUVVPUkFOR01BWFJINE02VlVJR0hRIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUZIRzNaVFVTTVpSTzNFTEQzV1JWT1E0VFVHU1hCTkpVTTRYTURBUk5MVjNSRDZCM0xCV1RaNkFZR05GTFoySFNHT1k0TzREVElMWVlMRTUySzY2WkhTTVdXQU9PVjRQSE9OSFZKWFdHVURDR0VHNUFSR0lMV0kzVk1SV1JHRU5XU0RWVkxNTEFIVFFVNFRUT1YyVzNaRUhNV1lBMkk2Nk41NFMzSEZMS08zSjdXT09HNlRWMlpHTzNaVlE3U0JFWjM2VzRGR0ZFUU8yNk1RIn19.Uvl4to68KxlwUqQWvsbJvYsouLteFMAunnRL-w3xe9BUSH0ef35mDu4FhoJhGeWBA-zeY6abnLgZbwTJv1IwoHgj32mabJrj2xFNXd78q4y0-q3iOTfVoPB8Ur5pS4Lr-09qGhZYgPOSfmUXvlMX_JH1XAVSWDPJzijhGxfSzILT11wtaMBFql0CvVAxHPFxsVFGMP4Ri8Kk1QB7JDt5BXV6czrpBGPTvHxnMFP_T7r8rDE3FZE0mSqOdg9R46iQCF2yXz2HgF1IiSn2oAtQc_gz5BRwa23FZoe7pbqa7GmSbcFoefWaHPuqJe4Mn2x1O65ZfPDGsATDwPilW-5bLw"
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.1c69d919-98cc-4deb-8ceb-30779f8ad504",
+		"timestamp": "2018-04-24T22:37:29Z",
+		"locale": "en-IN",
+		"intent": {
+			"name": "GetMoviesNowShowing",
+			"confirmationStatus": "CONFIRMED",
+			"slots": {
+				"LANGUAGE": {
+					"name": "LANGUAGE",
+					"value": "English",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.RegionalLanguage",
+								"status": {
+									"code": "ER_SUCCESS_MATCH"
+								},
+								"values": [
+									{
+										"value": {
+											"name": "english",
+											"id": "1"
+										}
+									}
+								]
+							}
+						]
+					},
+					"confirmationStatus": "NONE"
+				},
+				"CITY": {
+					"name": "CITY",
+					"value": "pune",
+					"confirmationStatus": "NONE"
+				}
+			}
+		},
+		"dialogState": "IN_PROGRESS"
+	}
+}

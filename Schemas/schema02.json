@@ -1,0 +1,222 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "flick search",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "GetMoviesNowShowing",
+                    "slots": [
+                        {
+                            "name": "CITY",
+                            "type": "AMAZON.City",
+                            "samples": [
+                                "I live in {CITY}",
+                                "{CITY}",
+                                "I'm in {CITY}"
+                            ]
+                        },
+                        {
+                            "name": "LANGUAGE",
+                            "type": "RegionalLanguage",
+                            "samples": [
+                                "Search movies shown in {LANGUAGE}",
+                                "{LANGUAGE} is better",
+                                "I would like to watch my movie in {LANGUAGE}",
+                                "I prefer {LANGUAGE}",
+                                "{LANGUAGE}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "tell me the movies which are showing in {CITY} in {LANGUAGE} language",
+                        "tell me the movies which are showing in the {CITY}",
+                        "tell me the movies showing in {CITY}",
+                        "which movies are showing in {CITY} in {LANGUAGE}",
+                        "which all movies are showing ",
+                        "which all movies are showing in {CITY}",
+                        "are there any movies showing in {CITY}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "RegionalLanguage",
+                    "values": [
+                        {
+                            "id": "9",
+                            "name": {
+                                "value": "punjabi"
+                            }
+                        },
+                        {
+                            "id": "8",
+                            "name": {
+                                "value": "bengali"
+                            }
+                        },
+                        {
+                            "id": "7",
+                            "name": {
+                                "value": "malayalam"
+                            }
+                        },
+                        {
+                            "id": "6",
+                            "name": {
+                                "value": "telugu"
+                            }
+                        },
+                        {
+                            "id": "5",
+                            "name": {
+                                "value": "tamil"
+                            }
+                        },
+                        {
+                            "id": "4",
+                            "name": {
+                                "value": "gujurati"
+                            }
+                        },
+                        {
+                            "id": "3",
+                            "name": {
+                                "value": "marathi"
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "hindi"
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "english"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "GetMoviesNowShowing",
+                    "confirmationRequired": true,
+                    "prompts": {
+                        "confirmation": "Confirm.Intent.1000740188503"
+                    },
+                    "slots": [
+                        {
+                            "name": "CITY",
+                            "type": "AMAZON.City",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1418075056364.1387742715141"
+                            }
+                        },
+                        {
+                            "name": "LANGUAGE",
+                            "type": "RegionalLanguage",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1418075056364.283526805104"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.1418075056364.1387742715141",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "I would like to know your city first."
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "please tell me your location"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "which city do you live in?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "please tell me the city you live in"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1418075056364.283526805104",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "I would like to know the language you prefer"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "which language do you prefer?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "please tell me the language in which you would like to watch your movie?"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Slot.562342651674.146994143516",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "You live in {CITY} right?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "your city is {CITY} . Is that correct?"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Slot.562342651674.294696123619",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "you said {LANGUAGE} . Is that correct?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "you wish to watch your movie in {LANGUAGE} right?"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Intent.1000740188503",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "you wish to know all the movies showing in {LANGUAGE} language in {CITY} . Is that correct?"
+                    }
+                ]
+            }
+        ]
+    }
+}
