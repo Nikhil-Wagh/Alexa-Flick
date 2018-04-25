@@ -25,10 +25,13 @@
 # To test it try this on your terminal
 # python-lambda-local -f lambda_handler -t 10 lambda_function.py ./events/event.json
 
+
+
 import re
 import urllib2
 import random
 from datetime import datetime
+from difflib import SequenceMatcher
 
 class BookMyShowClient(object):
 	NOW_SHOWING_REGEX = '{"event":"productClick","ecommerce":{"currencyCode":"INR","click":{"actionField":{"list":"Filter Impression:category\\\/now showing"},"products":\[{"name":"(.*?)","id":"(.*?)","category":"(.*?)","variant":"(.*?)","position":(.*?),"dimension13":"(.*?)"}\]}}}'
@@ -41,7 +44,7 @@ class BookMyShowClient(object):
 		self.__url = "https://in.bookmyshow.com/%s/movies" % self.__location
 		self.__html = None
 
-	def set_url(url):
+	def set_url(self, url):
 		self.__url = url
 		self.__html = None
 
@@ -62,11 +65,11 @@ class BookMyShowClient(object):
 		coming_soon = re.findall(self.COMING_SOON_REGEX, self.__html)
 		return coming_soon
 
-	def get_details():
+	def get_details(self):
 		if not self.__html:
 			self.__html = self.__download()
 
-		venue = re.findall(self.VENUE_REGEX, self.html)
+		venue = re.findall(self.VENUE_REGEX, self.__html)
 		venue_list = dict()
 		for row in venue:
 			venue_list[row[0]] = row[1]
@@ -110,8 +113,8 @@ def on_intent(request):
 
 	if intent_name == 'GetMoviesNowShowing':
 		return GetMoviesNowShowing(intent)
-	elif intent_name == 'GetMovieInfo':
-		return GetMovieInfo(intent)
+	elif intent_name == 'GetMovieDetails':
+		return GetMovieDetails(intent)
 	elif intent_name == "AMAZON.HelpIntent":
 		return do_help()
 	elif intent_name == "AMAZON.StopIntent":
@@ -124,87 +127,145 @@ def on_intent(request):
 
 
 def GetMoviesNowShowing(intent):
-	city = getSlotValue(intent, 'CITY')
-	language = getSlotValue(intent, 'LANGUAGE')
-
-	return response_plain_text("You have selected " + city + " and " + language + " language to see your movie", True, {}, "Hello", "Hello World")
+	city = getSlotValue(intent, 'CITY').lower()
+	language = getSlotValue(intent, 'LANGUAGE').lower()	
 
 	print(city, language)
 	result = []
-	if location != -1:
-		bms_client = BookMyShowClient(location)
-		try:
-			now_showing = bms_client.get_now_showing()
-		except Exception as e: # Error
-			print(e.args)
-			print(type(e))
-			return response_plain_text(
-					"Something went wrong, I'm terribly sorry",
-					True,
-					{},
-					"Error",
-					"I could not process your request at the moment.",
-					"Please try again. I would love to hear from you again"
-				)
-		else:
-			if movieName != -1:
-				for movie_info in now_showing:
-					if similar(movieName.lower(), movie_info[0].lower()):
-						result.append(movie_info)
-			else:
-				result.append(movie_info)
+	
+	bms_client = BookMyShowClient(city)
+	try:
+		now_showing = bms_client.get_now_showing()
+	except Exception as e: # Error
+		print(e.args)
+		print(type(e))
+		return response_plain_text(
+				"Something went wrong, I'm terribly sorry",
+				True,
+				{},
+				"Error",
+				"I could not process your request at the moment.",
+				"Please try again. I would love to hear from you again"
+			)
+	# No Error
+
+	# ('Avengers: Infinity War', 'ET00073462', 'MT', '2D', '1', 'English')
+	for movie in now_showing:
+		if movie[5].lower() == language:
+			result.append([movie[0], movie[3]])
+
+	if len(result) > 0:
+		outputSpeech, cardContent = getOSandCC(result)		
+		return response_plain_text(
+				"These are the movie" + ("s" if len(result) > 1 else "") + " which are screening in " + city + " right now. " + outputSpeech,
+				True,
+				{},
+				"Movies in " + city,
+				cardContent 
+			)
+		pass
 	else:
-		attributes = {
-			'Intent' : 'GetMovieList'
-		}
-		return response_plain_text("Please provide the location", False, attributes, "No location", "Found too many results", "I'm efficient if you provide me your location")
+		return response_plain_text(
+				"Bummer I couldn't find anything for that language. There may be movies showing in other languages, please try that.",
+				True,
+				{},
+				"Nothing to show",
+				"No movies showing right now.\nTry changing the language you want to watch your movie in."
+			)
 
-	if movieName != -1:
-		showDetails = GetMovieDetails(bms_client, result, movieName, location)
-		listTheatres = []
-		for k in showDetails.iterkeys():
-			listTheatres.append(k)
 
-		print(listTheatres)
-		print(showDetails)
 
-	else:
-		hello
-		outputSpeech = "These are the movies which are showing in your area " 
-		for r in result:
-			outputSpeech += r[0] + " which is showed in dimension " + r[3] + " and the language is " + r[5]
 
-		return response_plain_text(outputSpeech, False, {}, str(len(result)) + " movies showing", result)
+
+	# if movieName != -1:
+	# 	show_details = GetMovieDetails(bms_client, result, movieName, location)
+	# 	listTheatres = []
+	# 	for k in show_details.iterkeys():
+	# 		listTheatres.append(k)
+
+	# 	print(listTheatres)
+	# 	print(show_details)
+
+	# else:
+	# 	hello
+	# 	outputSpeech = "These are the movies which are showing in your area " 
+	# 	for r in result:
+	# 		outputSpeech += r[0] + " which is showed in dimension " + r[3] + " and the language is " + r[5]
+
+	# 	return response_plain_text(outputSpeech, False, {}, str(len(result)) + " movies showing", result)
 
 
 #url = https://in.bookmyshow.com/buytickets/bharat-ane-nenu-pune/movie-pune-ET00059033-MT/20180421
-def GetShowDetails(bms_client, movies_list, city):
-	showDetails = {}
+def GetMovieDetails(intent):
+	city = getSlotValue(intent, 'CITY').lower()
+	movie_name = getSlotValue(intent, 'NAME').lower()
+	movie_name = movie_name.encode('ascii', 'ignore')
+
+
+	movies_list = []
+	
+	bms_client = BookMyShowClient(city)
+	try:
+		now_showing = bms_client.get_now_showing()
+	except Exception as e: # Error
+		print(e.args)
+		print(type(e))
+		return response_plain_text(
+				"Something went wrong, I'm terribly sorry",
+				True,
+				{},
+				"Error",
+				"I could not process your request at the moment.",
+				"Please try again. I would love to hear from you again"
+			)
+
+	for movie in now_showing:
+		if similar(movie[0], movie_name) : 
+			movies_list.append(movie)
+
+	print("Matching movies List :: ", movies_list)
+
+	show_details = {}
+	theatres_list = set()
 	Baseurl = "https://in.bookmyshow.com/buytickets/"
 	Curdate = getDate()
 	Curtime = getTime()
-	for movie_info in movies_list: # No need to compare movie name as it is already compared above in GetMovieList
+
+
+	for movie_info in movies_list: 
 		url = Baseurl + movie_info[0].replace(' ', '-').lower() + "-" + city.lower() + "/movie-" + city.lower() + "-" + movie_info[1] + "/" + Curdate
 		print("\n\nURL:: " + url + "\n\n")
 		bms_client.set_url(url)
 		data = bms_client.get_details()
 		for row in data:
 			theatre_name = row['theatre_name']
-			if theatre_name not in showDetails:
-				showDetails[theatre_name] = []
+			theatres_list.add(theatre_name)
+			if theatre_name not in show_details:
+				show_details[theatre_name] = []
 			if row['time_code'] > Curtime:
 				temp = {}
-				temp['time'] = row['time']
+				temp['time'] = row['show_time']
 				temp['min_price'] = row['min_price']
 				temp['max_price'] = row['max_price']
-				showDetails[theatre_name].append(temp)
+				show_details[theatre_name].append(temp)
 
-	return showDetails
+
+	multi_list = set()
+	for theatre in theatres_list:
+		sim = False
+		for multi in multi_list:
+			if similar(multi, theatre[: theatre.find(":")]):
+				sim = True
+				break
+		if not sim:
+			multi_list.add(theatre[: theatre.find(":")])
+
+	"""
+	See this now : 
+	https://developer.amazon.com/docs/custom-skills/dialog-interface-reference.html#elicitslot
+	"""
 
 	
-	print("\n\n")   
-	print(result)
-	print("\n\n")
 
 
 # Skeleton of result
@@ -224,21 +285,41 @@ def GetShowDetails(bms_client, movies_list, city):
 # }
 
 
+def getOSandCC(results):
+	outputSpeech = ""
+	cardContent = ""
+	i = 0
+	for result in results:
+		outputSpeech += result[0].strip()
+		cardContent += result[0].strip() + "\n"
+		if i < len(results) - 1 and len(results) > 0:
+			outputSpeech += ", "
+		if i == len(results) - 2 and i != 0 :
+			outputSpeech += " and "
+		i += 1
+
+	return outputSpeech, cardContent
+
+
 def similar(a, b):
+	total = len(b)
 	a = a.split(' ')
 	b = b.split(' ')
+	a = [element.lower() for element in a]
+	b = [element.lower() for element in b]
+	a = [filter(str.isalnum, element) for element in a]
+	b = [filter(str.isalnum, element) for element in b]
+	
 	matches = 0
-	for i in a:
-		temp = b
-		for j in temp:
-			if i == j:
-				matches += 1
-				temp.remove(j)
+	for i in b:
+		for j in a:
+			if SequenceMatcher(None, i, j).ratio() > 0.8 :
+				matches += len(j)
 				break
-		total = len(b)
-		if((total < 4 and (temp/total) > 0.5) or (temp/total > 0.7)):
-			return True
+	if (total != 0 and float(matches)/total > 0.3):
+		return True
 
+	# print(matches, total, (float(matches)/total))
 	return False
 
 
@@ -257,7 +338,7 @@ def getTime():
 	return temp
 
 
-def response_plain_text(output, endsession, attributes, title, cardContent, repromt):
+def response_plain_text(output, endsession, attributes, title, cardContent, repromt = ""):
 	print("\n")
 	print(output)
 	print("\n")
@@ -302,7 +383,7 @@ def getWelcomeMessage():
 	Messages = [
 		"Namaste, What can I do for you?",
 		"Looking for movies? I'm can help you there.",
-		"Please, put me on work. I can find movies for you."
+		"Please put me on work. I can find movies for you."
 	]
 	return getRandom(Messages)
 
