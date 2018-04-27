@@ -125,7 +125,7 @@ def on_intent(request):
 		print ("Invalid Intent reply with help")
 		do_help()
 
-
+#This is working fine
 def GetMoviesNowShowing(intent):
 	city = getSlotValue(intent, 'CITY').lower()
 	language = getSlotValue(intent, 'LANGUAGE').lower()	
@@ -249,23 +249,74 @@ def GetMovieDetails(intent):
 				temp['max_price'] = row['max_price']
 				show_details[theatre_name].append(temp)
 
+	# Slot value may be present here
+	multiplex = getSlotValue(intent, 'MULTIPLEX')
+	if multiplex != -1:
+		multiplex = multiplex.lower()
+		pass
+	else:
+		"""
+		See this now : 
+		https://developer.amazon.com/docs/custom-skills/dialog-interface-reference.html#elicitslot
+		"""
+		multi_list = set()
+		outputSpeech = ""
+		for theatre in theatres_list:
+			sim = False
+			for multi in multi_list:
+				if similar(multi, theatre[: theatre.find(":")]):
+					sim = True
+					break
+			if not sim:
+				multi_list.add(theatre[: theatre.find(":")])
 
-	multi_list = set()
-	for theatre in theatres_list:
-		sim = False
+		i = 0
 		for multi in multi_list:
-			if similar(multi, theatre[: theatre.find(":")]):
-				sim = True
-				break
-		if not sim:
-			multi_list.add(theatre[: theatre.find(":")])
+			outputSpeech += multi 
+			if i < len(multi_list) - 1:
+				outputSpeech += ", "
+			if i == len(multi_list) - 2:
+				outputSpeech += "and "
+			i += 1
 
-	"""
-	See this now : 
-	https://developer.amazon.com/docs/custom-skills/dialog-interface-reference.html#elicitslot
-	"""
-
-	
+		return {
+			"version": "1.0",
+			"sessionAttributes": {},
+			"response": {
+			"outputSpeech": {
+				"type": "PlainText",
+				"text": "These are the multiplex" + ("es" if len(multi_list) > 1 else "") + " " + outputSpeech + ". Please select one out of these."
+				# outputSpeech contains the list of options I want the user to select from
+			},
+			"shouldEndSession": False,
+			"directives": [
+				{
+					"type": "Dialog.ElicitSlot",
+					"slotToElicit": "MULTIPLEX",
+					"updatedIntent": {
+						"name": "GetMovieDetails",
+						"confirmationStatus": "NONE",
+						"slots": {
+							"CITY" : {
+								"name" : "CITY",
+								"confirmationStatus" : "NONE",
+								"value" : city # this is already filled, it is just anti-capitalised 
+							},
+							"NAME" : {
+								"name" : "NAME",
+								"confirmationStatus" : "NONE",
+								"value" : movie_name # this is already filled, it is just anti-capitalised 
+							},
+							"MULTIPLEX" : {
+								"name" : "MULTIPLEX",
+								"confirmationStatus" : "NONE",
+							}
+						}
+					}
+				}
+			]
+		}
+	}
 
 
 # Skeleton of result
@@ -370,7 +421,8 @@ def response_plain_text(output, endsession, attributes, title, cardContent, repr
 def getSlotValue(intent, slot):
 	if 'slots' in intent:
 		if slot in intent['slots']:
-			return intent['slots'][slot]['value']
+			if 'value' in intent['slots'][slot]:
+				return intent['slots'][slot]['value']
 	
 	return -1
 
@@ -382,7 +434,7 @@ def getRandom(messages):
 def getWelcomeMessage():
 	Messages = [
 		"Namaste, What can I do for you?",
-		"Looking for movies? I'm can help you there.",
+		"Looking for movies? I can help you there.",
 		"Please put me on work. I can find movies for you."
 	]
 	return getRandom(Messages)
