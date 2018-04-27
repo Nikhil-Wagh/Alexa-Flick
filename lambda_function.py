@@ -507,5 +507,3 @@ def dialog_response(attributes, endsession):
 		#       else:
 		#           result.append(movie_info)
 
-
-
