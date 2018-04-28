@@ -81,8 +81,8 @@ class BookMyShowClient(object):
 			current['theatre_name'] = venue_list[row[0]]    # add theatre name
 			current['show_time'] = row[3]                   # add time
 			current['time_code'] = row[4]                   # add time code for eg '1700'
-			current['min_price'] = row[5]
-			current['max_price'] = row[6]
+			current['min_price'] = row[5]					# For eg : '60.00'
+			current['max_price'] = row[6]					# For eg : '70.00'
 			current['class'] = row[-1]                      # Morning, afternoon
 			show_list.append(current)
 		return show_list
@@ -174,36 +174,12 @@ def GetMoviesNowShowing(intent):
 			)
 
 
-
-
-
-	# if movieName != -1:
-	# 	show_details = GetMovieDetails(bms_client, result, movieName, location)
-	# 	listTheatres = []
-	# 	for k in show_details.iterkeys():
-	# 		listTheatres.append(k)
-
-	# 	print(listTheatres)
-	# 	print(show_details)
-
-	# else:
-	# 	hello
-	# 	outputSpeech = "These are the movies which are showing in your area " 
-	# 	for r in result:
-	# 		outputSpeech += r[0] + " which is showed in dimension " + r[3] + " and the language is " + r[5]
-
-	# 	return response_plain_text(outputSpeech, False, {}, str(len(result)) + " movies showing", result)
-
-
 #url = https://in.bookmyshow.com/buytickets/bharat-ane-nenu-pune/movie-pune-ET00059033-MT/20180421
 def GetMovieDetails(intent):
 	city = getSlotValue(intent, 'CITY').lower()
 	movie_name = getSlotValue(intent, 'NAME').lower()
 	movie_name = movie_name.encode('ascii', 'ignore')
 
-
-	movies_list = []
-	
 	bms_client = BookMyShowClient(city)
 	try:
 		now_showing = bms_client.get_now_showing()
@@ -218,14 +194,15 @@ def GetMovieDetails(intent):
 				"I could not process your request at the moment.",
 				"Please try again. I would love to hear from you again"
 			)
-
+	
+	movies_list = []
 	for movie in now_showing:
 		if similar(movie[0], movie_name) : 
 			movies_list.append(movie)
 
 	print("Matching movies List :: ", movies_list)
 
-	show_details = {}
+	all_show_details = {}
 	theatres_list = set()
 	Baseurl = "https://in.bookmyshow.com/buytickets/"
 	Curdate = getDate()
@@ -240,20 +217,57 @@ def GetMovieDetails(intent):
 		for row in data:
 			theatre_name = row['theatre_name']
 			theatres_list.add(theatre_name)
-			if theatre_name not in show_details:
-				show_details[theatre_name] = []
-			if row['time_code'] > Curtime:
-				temp = {}
-				temp['time'] = row['show_time']
-				temp['min_price'] = row['min_price']
-				temp['max_price'] = row['max_price']
-				show_details[theatre_name].append(temp)
 
+	# print("List of Theatres : ", theatres_list)
+	
 	# Slot value may be present here
 	multiplex = getSlotValue(intent, 'MULTIPLEX')
 	if multiplex != -1:
+		multiplex = multiplex.encode('ascii', 'ignore')
 		multiplex = multiplex.lower()
-		pass
+		show_details = dict()
+		print("MULTIPLEX", multiplex)
+		for row in data : 
+			theatre_name = row['theatre_name']
+			if similar(multiplex, theatre_name[: theatre_name.find(":")]) :
+				temp = {}
+				temp['show_time'] = row['show_time']
+				temp['min_price'] = row['min_price']
+				temp['max_price'] = row['max_price']
+				if theatre_name not in show_details:
+					show_details[theatre_name] = []	
+				show_details[theatre_name].append(temp)
+
+		print("All required details", show_details) 
+		
+		outputSpeech = ""
+		cardContent = ""
+		i = 0 
+		for element, values in show_details.iteritems() : 
+			outputSpeech += "At " + element + " "
+			cardContent += element + ":: "
+			i = 0
+			for value in values : 
+				outputSpeech += value['show_time']
+				cardContent += value['show_time'] + " (" + value['min_price'] + " Rs - " + value['max_price'] + " Rs)"
+				if i < len(values) - 1:
+					outputSpeech += ", "
+					cardContent += ", "
+				if i == len(values) - 2:
+					outputSpeech += "and "
+					cardContent += "and " 
+				i += 1
+			outputSpeech += ". "
+			cardContent += "\n"
+
+		return response_plain_text(
+				"Here are the show timings ... " + outputSpeech,
+				True, 
+				{},
+				"Show Details",
+				cardContent
+			)
+
 	else:
 		"""
 		See this now : 
@@ -320,15 +334,15 @@ def GetMovieDetails(intent):
 
 
 # Skeleton of result
-# show_details{
-#   details : [
+# all_show_details{
+#   theatre_name : [
 #       {
-#           time : 
+#           show_time : 
 #           min_price : 
 #           max_price : 
 #       },
 #       {
-#           time : 
+#           show_time : 
 #           min_price : 
 #           max_price : 
 #       },
@@ -483,27 +497,4 @@ def dialog_response(attributes, endsession):
 			'shouldEndSession': endsession
 		}
 }
-
-
-# else:
-		#   try:
-		#       coming_soon = bms_client.get_coming_soon()
-		#   except Exception as e:
-		#       print(e.args)
-		#       print(type(e))
-		#       return response_plain_text(
-		#               "Something went wrong, I'm terribly sorry",
-		#               True,
-		#               {},
-		#               "Error",
-		#               "I could not process your request at the moment.",
-		#               "Please try again. I would love to hear from you again"
-		#           )
-		#   else:
-		#       if movieName != -1:
-		#           for movie_info in coming_soon:
-		#               if jellyfish.damerau_levenshtein_distance(movieName.lower(), movie_info[0].lower()) > 0.8:
-		#                   result.append(movie_info)
-		#       else:
-		#           result.append(movie_info)
 

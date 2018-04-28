@@ -54,7 +54,8 @@
 				},
 				"MULTIPLEX": {
 					"name": "MULTIPLEX",
-					"confirmationStatus": "NONE"
+					"confirmationStatus": "NONE",
+					"value" : "Carnival"
 				},
 				"NAME": {
 					"name": "NAME",
