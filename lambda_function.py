@@ -1,29 +1,36 @@
-# ********************************************************* #
-# getMoviesNowShowing                                       #
-#   - language                                              #
-#   - city                                                  #
-#                                                           #
-# // getMoviesComingSoon                                    #
-# //    - language                                          #
-# //    - city                                              #
-#                                                           #
-# GetMovieDetails                                           #
-#   - Movie name                                            #
-#   - city                                                  #
-#   - theatre                                               #
-#                                                           #
-# areSeatsAvailable                                         #
-#   - movie name                                            #
-#   - ShowTime                                              #
-#   - city                                                  #
-#                                                           #
-# getTheatreList                                            #
-#   - city                                                  #
-#                                                           #
-# ********************************************************* #
+"""
+These are the intents which this skill supports and the respective slots
 
-# To test it try this on your terminal
-# python-lambda-local -f lambda_handler -t 10 lambda_function.py ./events/event.json
+getMoviesNowShowing                                   
+  - language 
+  - city  
+
+# This is put on hold
+getMoviesComingSoon 
+    - language
+    - city
+
+GetMovieDetails
+  - Movie name
+  - city
+  - theatre
+
+# This is put on hold
+areSeatsAvailable
+  - movie name
+  - ShowTime
+  - city
+
+# This is put on hold
+getTheatreList
+  - city                                              
+"""
+
+"""
+To test it try this on your terminal
+python-lambda-local -f lambda_handler -t 10 lambda_function.py ./events/event.json
+replace event.json with any one of the events in the events folder
+"""
 
 
 import re
@@ -88,7 +95,6 @@ class BookMyShowClient(object):
 		return show_list
 
 
-
 def lambda_handler(event, context):
 	if event['request']['type'] == "LaunchRequest":
 		return on_launch(event, context)
@@ -126,7 +132,7 @@ def on_intent(request):
 		print ("Invalid Intent reply with help")
 		do_help()
 
-#This is working fine
+# Returns a response to lambda_handler, which contains a list of movies showing in the your area and in your given dialect 
 def GetMoviesNowShowing(intent):
 	city = getSlotValue(intent, 'CITY').lower()
 	language = getSlotValue(intent, 'LANGUAGE').lower()	
@@ -137,7 +143,7 @@ def GetMoviesNowShowing(intent):
 	bms_client = BookMyShowClient(city)
 	try:
 		now_showing = bms_client.get_now_showing()
-	except Exception as e: # Error
+	except Exception as e: 
 		print(e.args)
 		print(type(e))
 		return response_plain_text(
@@ -179,7 +185,7 @@ def print_now(s, start) :
 	print s, (now - start)*1000, "milliseconds\n"
 
 
-#url = https://in.bookmyshow.com/buytickets/bharat-ane-nenu-pune/movie-pune-ET00059033-MT/20180421
+# url = https://in.bookmyshow.com/buytickets/bharat-ane-nenu-pune/movie-pune-ET00059033-MT/20180421
 def GetMovieDetails(intent):
 	start = time.time()
 	
@@ -303,7 +309,7 @@ def GetMovieDetails(intent):
 		See this now : 
 		https://developer.amazon.com/docs/custom-skills/dialog-interface-reference.html#elicitslot
 		"""
-		
+		# TODO: Make a function of this and use it above in the if - part
 		outputSpeech = ""
 		for theatre in theatres_list:
 			sim = False
@@ -383,6 +389,16 @@ def similar(a, b):
 	return False
 
 
+def getSlotValue(intent, slot):
+	if 'slots' in intent:
+		if slot in intent['slots']:
+			if 'value' in intent['slots'][slot]:
+				return intent['slots'][slot]['value']
+	
+	return -1
+
+def getRandom(messages):
+	return messages[random.randint(0, len(messages) - 1)] 
 
 def getDate():
 	d = datetime.now()
@@ -395,6 +411,61 @@ def getTime():
 	temp = d.strftime("%H%M")
 	return temp
 
+def getWelcomeMessage():
+	# TODO: Improve this
+	Messages = [
+		"Namaste, What can I do for you?",
+		"Looking for movies? I can help you there.",
+		"Please put me on work. I can find movies for you."
+	]
+	return getRandom(Messages)
+
+def do_help():
+	# TODO: Improve this
+	Messages = [
+		"You can say 'tell me about the upcoming movies'",
+		"You can ask for movies now showing",
+		"You can ask for a movies showing in particular language"
+	]
+	return response_plain_text(
+			getRandom(Messages),
+			False,
+			{},
+			"Flick - Get the movies you want",
+			"What can I do for you?",
+			"I would love to hear from you"
+		)
+
+def do_stop():
+	Messages = [
+		"Good Bye!!"
+	]
+	# TODO: Improve this
+	return response_plain_text(
+			getRandom(Messages),
+			True,
+			{},
+			"TATA",
+			"We hope to see you again.",
+			"Is there anything I can do for you?"
+		)
+
+# **************  Responses  ******************** #
+
+def dialog_response(attributes, endsession):
+
+	return {
+		'version': '1.0',
+		'sessionAttributes': attributes,
+		'response':{
+			'directives': [
+				{
+					'type': 'Dialog.Delegate'
+				}
+			],
+			'shouldEndSession': endsession
+		}
+}
 
 def response_plain_text(output, endsession, attributes, title, cardContent, repromt = ""):
 	print("\n")
@@ -450,70 +521,4 @@ def dialog_elicit_slot(output):
 		}
 	}
 
-
-def getSlotValue(intent, slot):
-	if 'slots' in intent:
-		if slot in intent['slots']:
-			if 'value' in intent['slots'][slot]:
-				return intent['slots'][slot]['value']
-	
-	return -1
-
-
-def getRandom(messages):
-	return messages[random.randint(0, len(messages) - 1)] 
-
-
-def getWelcomeMessage():
-	Messages = [
-		"Namaste, What can I do for you?",
-		"Looking for movies? I can help you there.",
-		"Please put me on work. I can find movies for you."
-	]
-	return getRandom(Messages)
-
-def do_help():
-	Messages = [
-		"You can say 'tell me about the upcoming movies'",
-		"You can ask for movies now showing",
-		"You can ask for a movies showing in particular language"
-	]
-	return response_plain_text(
-			getRandom(Messages),
-			False,
-			{},
-			"Flick - Get the movies you want",
-			"What can I do for you?",
-			"I would love to hear from you"
-		)
-
-def do_stop():
-	Messages = [
-		"Good Bye!!"
-	]
-	return response_plain_text(
-			getRandom(Messages),
-			True,
-			{},
-			"TATA",
-			"We hope to see you again.",
-			"Is there anything I can do for you?"
-		)
-
-
-
-def dialog_response(attributes, endsession):
-
-	return {
-		'version': '1.0',
-		'sessionAttributes': attributes,
-		'response':{
-			'directives': [
-				{
-					'type': 'Dialog.Delegate'
-				}
-			],
-			'shouldEndSession': endsession
-		}
-}
 
