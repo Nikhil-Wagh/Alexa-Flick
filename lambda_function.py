@@ -26,11 +26,11 @@
 # python-lambda-local -f lambda_handler -t 10 lambda_function.py ./events/event.json
 
 
-
 import re
 import urllib2
 import random
 from datetime import datetime
+import time
 from difflib import SequenceMatcher
 
 class BookMyShowClient(object):
@@ -109,7 +109,8 @@ def on_intent(request):
 
 	if 'dialogState' in request:
 		if request['dialogState'] == "STARTED" or request['dialogState'] == "IN_PROGRESS":
-			return dialog_response(request['dialogState'], False)
+			if getSlotValue(intent, 'CITY') == -1 or getSlotValue(intent, 'NAME') == -1 : 
+				return dialog_response(request['dialogState'], False)
 
 	if intent_name == 'GetMoviesNowShowing':
 		return GetMoviesNowShowing(intent)
@@ -173,13 +174,21 @@ def GetMoviesNowShowing(intent):
 				"No movies showing right now.\nTry changing the language you want to watch your movie in."
 			)
 
+def print_now(s, start) : 
+	now = time.time()
+	print s, (now - start)*1000, "milliseconds\n"
+
 
 #url = https://in.bookmyshow.com/buytickets/bharat-ane-nenu-pune/movie-pune-ET00059033-MT/20180421
 def GetMovieDetails(intent):
+	start = time.time()
+	
+
 	city = getSlotValue(intent, 'CITY').lower()
 	movie_name = getSlotValue(intent, 'NAME').lower()
 	movie_name = movie_name.encode('ascii', 'ignore')
-
+	print_now("Started at ::", start)
+	# this is taking a lot of time
 	bms_client = BookMyShowClient(city)
 	try:
 		now_showing = bms_client.get_now_showing()
@@ -194,13 +203,16 @@ def GetMovieDetails(intent):
 				"I could not process your request at the moment.",
 				"Please try again. I would love to hear from you again"
 			)
-	
+
+	print_now("Gathered all movies data in::", start)
+
 	movies_list = []
 	for movie in now_showing:
 		if similar(movie[0], movie_name) : 
 			movies_list.append(movie)
 
 	print("Matching movies List :: ", movies_list)
+	print_now("Movie list created at ::", start)
 
 	all_show_details = {}
 	theatres_list = set()
@@ -208,7 +220,7 @@ def GetMovieDetails(intent):
 	Curdate = getDate()
 	Curtime = getTime()
 
-
+	all_data = []
 	for movie_info in movies_list: 
 		url = Baseurl + movie_info[0].replace(' ', '-').lower() + "-" + city.lower() + "/movie-" + city.lower() + "-" + movie_info[1] + "/" + Curdate
 		print("\n\nURL:: " + url + "\n\n")
@@ -217,17 +229,33 @@ def GetMovieDetails(intent):
 		for row in data:
 			theatre_name = row['theatre_name']
 			theatres_list.add(theatre_name)
+			all_data.append(row)
 
 	# print("List of Theatres : ", theatres_list)
+	print_now("Got all data from remote site at::", start)
 	
+	multi_list = set()
+
 	# Slot value may be present here
 	multiplex = getSlotValue(intent, 'MULTIPLEX')
 	if multiplex != -1:
 		multiplex = multiplex.encode('ascii', 'ignore')
 		multiplex = multiplex.lower()
+		# TODO: here it is assumed that the multiplex name user has spoken is from the list given and nothing else
+		
+		# found = False
+		# print multiplex, multi_list
+		# for e in multi_list : 
+		# 	if similar(e.lower(), multiplex) : 
+		# 		found = True
+		# 		break
+		# if not found: 
+		# 	# TODO: generate a response with names of multiplexes
+		# 	return dialog_elicit_slot("Incorrect response. Please select from this list only.")
+		
 		show_details = dict()
-		print("MULTIPLEX", multiplex)
-		for row in data : 
+		print("MULTIPLEX", multiplex) 
+		for row in all_data: 
 			theatre_name = row['theatre_name']
 			if similar(multiplex, theatre_name[: theatre_name.find(":")]) :
 				temp = {}
@@ -260,6 +288,8 @@ def GetMovieDetails(intent):
 			outputSpeech += ". "
 			cardContent += "\n"
 
+		print_now("Result generated at ::", start)
+
 		return response_plain_text(
 				"Here are the show timings ... " + outputSpeech,
 				True, 
@@ -273,7 +303,7 @@ def GetMovieDetails(intent):
 		See this now : 
 		https://developer.amazon.com/docs/custom-skills/dialog-interface-reference.html#elicitslot
 		"""
-		multi_list = set()
+		
 		outputSpeech = ""
 		for theatre in theatres_list:
 			sim = False
@@ -293,44 +323,9 @@ def GetMovieDetails(intent):
 				outputSpeech += "and "
 			i += 1
 
-		return {
-			"version": "1.0",
-			"sessionAttributes": {},
-			"response": {
-			"outputSpeech": {
-				"type": "PlainText",
-				"text": "These are the multiplex" + ("es" if len(multi_list) > 1 else "") + " " + outputSpeech + ". Please select one out of these."
-				# outputSpeech contains the list of options I want the user to select from
-			},
-			"shouldEndSession": False,
-			"directives": [
-				{
-					"type": "Dialog.ElicitSlot",
-					"slotToElicit": "MULTIPLEX",
-					"updatedIntent": {
-						"name": "GetMovieDetails",
-						"confirmationStatus": "NONE",
-						"slots": {
-							"CITY" : {
-								"name" : "CITY",
-								"confirmationStatus" : "NONE",
-								"value" : city # this is already filled, it is just anti-capitalised 
-							},
-							"NAME" : {
-								"name" : "NAME",
-								"confirmationStatus" : "NONE",
-								"value" : movie_name # this is already filled, it is just anti-capitalised 
-							},
-							"MULTIPLEX" : {
-								"name" : "MULTIPLEX",
-								"confirmationStatus" : "NONE",
-							}
-						}
-					}
-				}
-			]
-		}
-	}
+		print_now("Result generated at ::", start)
+		output = "These are the multiplex" + ("es" if len(multi_list) > 1 else "") + " " + outputSpeech + ". Please select one out of these."
+		return dialog_elicit_slot(output)
 
 
 # Skeleton of result
@@ -393,13 +388,11 @@ def getDate():
 	d = datetime.now()
 	temp = "20"
 	temp += d.strftime("%y%m%d")
-	print(temp)
 	return temp
 
 def getTime():
 	d = datetime.now()
 	temp = d.strftime("%H%M")
-	print(temp)
 	return temp
 
 
@@ -429,6 +422,32 @@ def response_plain_text(output, endsession, attributes, title, cardContent, repr
 			}
 		},
 		'sessionAttributes' : attributes
+	}
+
+
+def dialog_elicit_slot(output):
+	print output, "\n"
+	return {
+		"version": "1.0",
+		"sessionAttributes": {},
+		"response": {
+			"outputSpeech": {
+				"type": "PlainText",
+				"text": output
+				# outputSpeech contains the list of options I want the user to select from
+			},
+			"shouldEndSession": False,
+			"directives": [
+				{
+					"type": "Dialog.ElicitSlot",
+					"slotToElicit": "MULTIPLEX",
+					"updatedIntent": {
+						"name": "GetMovieDetails",
+						"confirmationStatus": "NONE",
+					}
+				}
+			]
+		}
 	}
 
 
