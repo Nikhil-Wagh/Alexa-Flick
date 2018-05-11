@@ -7,8 +7,8 @@ getMoviesNowShowing
 
 # This is put on hold
 getMoviesComingSoon 
-    - language
-    - city
+	- language
+	- city
 
 GetMovieDetails
   - Movie name
@@ -113,6 +113,14 @@ def on_intent(request):
 	intent = request['intent']
 	intent_name = request['intent']['name']
 
+	if intent_name == "AMAZON.HelpIntent":
+		return do_help()
+	elif intent_name == "AMAZON.StopIntent":
+		return do_stop()
+	elif intent_name == "AMAZON.CancelIntent":
+		return do_stop()
+
+	# DialogState has to be returned only for non built-in intents
 	if 'dialogState' in request:
 		if request['dialogState'] == "STARTED" or request['dialogState'] == "IN_PROGRESS":
 			if getSlotValue(intent, 'CITY') == -1 or getSlotValue(intent, 'NAME') == -1 : 
@@ -122,32 +130,26 @@ def on_intent(request):
 		return GetMoviesNowShowing(intent)
 	elif intent_name == 'GetMovieDetails':
 		return GetMovieDetails(intent)
-	elif intent_name == "AMAZON.HelpIntent":
+	else : 
+		print "Incorrect response do help"
 		return do_help()
-	elif intent_name == "AMAZON.StopIntent":
-		return do_stop(attributes)
-	elif intent_name == "AMAZON.CancelIntent":
-		return do_stop()
-	else:
-		print ("Invalid Intent reply with help")
-		do_help()
 
 # Returns a response to lambda_handler, which contains a list of movies showing in the your area and in your given dialect 
 def GetMoviesNowShowing(intent):
 	city = getSlotValue(intent, 'CITY').lower()
 	language = getSlotValue(intent, 'LANGUAGE').lower()	
 
-	print(city, language)
+	print "User's City:", city, ",\nUser's Language:", language
 	result = []
 	
 	bms_client = BookMyShowClient(city)
 	try:
 		now_showing = bms_client.get_now_showing()
 	except Exception as e: 
-		print(e.args)
-		print(type(e))
+		print e.args 
+		print type(e) 
 		return response_plain_text(
-				"Something went wrong, I'm terribly sorry",
+				"Something went wrong, I'm terribly sorry. Please try again.",
 				True,
 				{},
 				"Error",
@@ -217,7 +219,7 @@ def GetMovieDetails(intent):
 		if similar(movie[0], movie_name) : 
 			movies_list.append(movie)
 
-	print("Matching movies List :: ", movies_list)
+	print "Matching movies List :: ", movies_list
 	print_now("Movie list created at ::", start)
 
 	all_show_details = {}
@@ -246,23 +248,12 @@ def GetMovieDetails(intent):
 	multiplex = getSlotValue(intent, 'MULTIPLEX')
 	if multiplex != -1:
 		multiplex = multiplex.encode('ascii', 'ignore')
-		multiplex = multiplex.lower()
-		# TODO: here it is assumed that the multiplex name user has spoken is from the list given and nothing else
-		
-		# found = False
-		# print multiplex, multi_list
-		# for e in multi_list : 
-		# 	if similar(e.lower(), multiplex) : 
-		# 		found = True
-		# 		break
-		# if not found: 
-		# 	# TODO: generate a response with names of multiplexes
-		# 	return dialog_elicit_slot("Incorrect response. Please select from this list only.")
-		
+		multiplex = multiplex.lower()		
 		show_details = dict()
-		print("MULTIPLEX", multiplex) 
+		print "MULTIPLEX", multiplex 
 		for row in all_data: 
 			theatre_name = row['theatre_name']
+			print theatre_name
 			if similar(multiplex, theatre_name[: theatre_name.find(":")]) :
 				temp = {}
 				temp['show_time'] = row['show_time']
@@ -272,13 +263,14 @@ def GetMovieDetails(intent):
 					show_details[theatre_name] = []	
 				show_details[theatre_name].append(temp)
 
-		print("All required details", show_details) 
+		print "All required details", show_details
 		
 		outputSpeech = ""
 		cardContent = ""
 		i = 0 
 		for element, values in show_details.iteritems() : 
-			outputSpeech += "At " + element + " "
+			theatre_name = element[element.find(":") + 2: element.find(",")]
+			outputSpeech += "At " + theatre_name + ", "
 			cardContent += element + ":: "
 			i = 0
 			for value in values : 
@@ -295,9 +287,13 @@ def GetMovieDetails(intent):
 			cardContent += "\n"
 
 		print_now("Result generated at ::", start)
-
+		output = ""
+		if len(show_details) > 0 : 
+			output = "Here are the show timings ... " + outputSpeech
+		else : 
+			output = "Sorry I couldn't find anything for " + movie_name + " at " + multiplex
 		return response_plain_text(
-				"Here are the show timings ... " + outputSpeech,
+				output,
 				True, 
 				{},
 				"Show Details",
@@ -309,7 +305,6 @@ def GetMovieDetails(intent):
 		See this now : 
 		https://developer.amazon.com/docs/custom-skills/dialog-interface-reference.html#elicitslot
 		"""
-		# TODO: Make a function of this and use it above in the if - part
 		outputSpeech = ""
 		for theatre in theatres_list:
 			sim = False
@@ -330,25 +325,8 @@ def GetMovieDetails(intent):
 			i += 1
 
 		print_now("Result generated at ::", start)
-		output = "These are the multiplex" + ("es" if len(multi_list) > 1 else "") + " " + outputSpeech + ". Please select one out of these."
-		return dialog_elicit_slot(output)
-
-
-# Skeleton of result
-# all_show_details{
-#   theatre_name : [
-#       {
-#           show_time : 
-#           min_price : 
-#           max_price : 
-#       },
-#       {
-#           show_time : 
-#           min_price : 
-#           max_price : 
-#       },
-#   ]
-# }
+		output = "These are the multiplex" + ("es" if len(multi_list) > 1 else "") + ", " + outputSpeech + ". Please select one out of these."
+		return dialog_elicit_slot(output, city, movie_name)
 
 
 def getOSandCC(results):
@@ -361,7 +339,7 @@ def getOSandCC(results):
 		if i < len(results) - 1 and len(results) > 0:
 			outputSpeech += ", "
 		if i == len(results) - 2 and i != 0 :
-			outputSpeech += " and "
+			outputSpeech += "and "
 		i += 1
 
 	return outputSpeech, cardContent
@@ -385,7 +363,6 @@ def similar(a, b):
 	if (total != 0 and float(matches)/total > 0.3):
 		return True
 
-	# print(matches, total, (float(matches)/total))
 	return False
 
 
@@ -423,12 +400,12 @@ def getWelcomeMessage():
 def do_help():
 	# TODO: Improve this
 	Messages = [
-		"You can say 'tell me about the upcoming movies'",
-		"You can ask for movies now showing",
-		"You can ask for a movies showing in particular language"
+		"You can say 'tell me about the movies showing near me'",
+		"You can ask for 'movies now showing'",
+		"You can ask for 'movies showing in english'"
 	]
 	return response_plain_text(
-			getRandom(Messages),
+			getRandom(Messages) + ", or you can say 'I want to watch a movie'",
 			False,
 			{},
 			"Flick - Get the movies you want",
@@ -465,7 +442,7 @@ def dialog_response(attributes, endsession):
 			],
 			'shouldEndSession': endsession
 		}
-}
+	}
 
 def response_plain_text(output, endsession, attributes, title, cardContent, repromt = ""):
 	print("\n")
@@ -496,7 +473,7 @@ def response_plain_text(output, endsession, attributes, title, cardContent, repr
 	}
 
 
-def dialog_elicit_slot(output):
+def dialog_elicit_slot(output, city_name, movie_name):
 	print output, "\n"
 	return {
 		"version": "1.0",
@@ -505,7 +482,6 @@ def dialog_elicit_slot(output):
 			"outputSpeech": {
 				"type": "PlainText",
 				"text": output
-				# outputSpeech contains the list of options I want the user to select from
 			},
 			"shouldEndSession": False,
 			"directives": [
@@ -515,6 +491,22 @@ def dialog_elicit_slot(output):
 					"updatedIntent": {
 						"name": "GetMovieDetails",
 						"confirmationStatus": "NONE",
+						"slots": {
+							"CITY": {
+								"name": "CITY",
+								"confirmationStatus": "NONE",
+								"value": city_name
+							},
+							"NAME": {
+								"name": "NAME",
+								"confirmationStatus": "NONE",
+								"value": movie_name
+							},
+							"MULTIPLEX": {
+								"name": "MULTIPLEX",
+								"confirmationStatus": "NONE"
+							}
+						}
 					}
 				}
 			]
