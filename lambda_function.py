@@ -32,9 +32,8 @@ python-lambda-local -f lambda_handler -t 10 lambda_function.py ./events/event.js
 replace event.json with any one of the events in the events folder
 """
 
-
 import re
-import urllib2
+import requests
 import random
 from datetime import datetime
 import time
@@ -45,8 +44,9 @@ class BookMyShowClient(object):
 	COMING_SOON_REGEX = '{"event":"productClick","ecommerce":{"currencyCode":"INR","click":{"actionField":{"list":"category\\\/coming soon"},"products":{"name":"(.*?)","id":"(.*?)","category":"(.*?)","variant":"(.*?)","position":(.*?),"dimension13":"(.*?)"}}}}'
 	DETAILED_REGEX = '{"VenueCode":"(.*?)","EventCode":"(.*?)","SessionId":(.*?),"ShowTime":"(.*?)","ShowTimeCode":"(.*?)","MinPrice":"(.*?)","MaxPrice":"(.*?)","Availability":"(.*?)","CutOffFlag":"(.*?)","ShowDateTime":"(.*?)","CutOffDateTime":"(.*?)","BestBuy":"(.*?)","ShowDateCode":"(.*?)","IsAtmosEnabled":"(.*?)","SessionUnpaidFlag":"(.*?)","SessionUnpaidQuota":"(.*?)","BestAvailableSeats":(.*?),"Attributes":"(.*?)","SessionCodFlag":"(.*?)","SessionCodQuota":"(.*?)","SessionCopFlag":"(.*?)","SessionCopQuota":"(.*?)","SessionPopUpDesc":"(.*?)","Class":"(.*?)"}'
 	VENUE_REGEX = '{"VenueCode":"(.*?)","VenueName":"(.*?)","VenueAdd":"(.*?)","VenueLegends":"(.*?)","VenueOffers":"(.*?)","SessCount":"(.*?)","AllowSales":"(.*?)","CompCode":"(.*?)","Lat":"(.*?)","Lng":"(.*?)","SubRegCode":"(.*?)","SubRegName":"(.*?)","SubRegSeq":"(.*?)","VenueApp":"(.*?)","IsNewCinema":"(.*?)","IsFoodSales":"(.*?)","IsMultiplex":"(.*?)","IsFullSeatLayout":"(.*?)","Message":"(.*?)","MessageType":"(.*?)","MessageTitle":"(.*?)","CinemaUnpaidFlag":"(.*?)","MTicket":"(.*?)","PopUpDescription":"(.*?)","IsFullLayout":"(.*?)","CinemaCodFlag":"(.*?)","CinemaCopFlag":"(.*?)","TicketCancellation":"(.*?)","VenueInfoMessage":"(.*?)"}'
+	
 
-	def __init__(self, location = 'Bengaluru'):
+	def __init__(self, location):
 		self.__location = location.lower()
 		self.__url = "https://in.bookmyshow.com/%s/movies" % self.__location
 		self.__html = None
@@ -56,14 +56,54 @@ class BookMyShowClient(object):
 		self.__html = None
 
 	def __download(self):
-		req = urllib2.Request(self.__url, headers={'User-Agent' : "Magic Browser"})
-		html = urllib2.urlopen(req).read()
-		return html
+		req = requests.get(self.__url, headers={'User-Agent' : "Magic Browser"})
+		
+		print "Downloaded from ::", req.url
+		print "Status Code::", req.status_code
+		print "\n\n"
+
+		html = req.text
+		return html.encode('ascii', 'ignore')
+
+	def compare(self, left, right, movie_name) : 
+		i = left
+		j = 0
+		while i < right and j < len(movie_name): 
+			if not movie_name[j].isalnum() : 
+				j += 1
+			if not self.__html[i].isalnum() : 
+				i += 1
+			if (j < len(movie_name) and i < right) and (movie_name[j].isalnum() and self.__html[i].isalnum()) : 
+				if movie_name[j].lower() != self.__html[i].lower() : 
+					return False
+				else : 
+					i += 1
+					j += 1
+
+		return True
 
 	def get_now_showing(self):
 		if not self.__html:
 			self.__html = self.__download()
 		now_showing = re.findall(self.NOW_SHOWING_REGEX, self.__html)
+
+		"""
+		This is done to add the buy URL to now_showing tuple 
+		"""
+		found = set()
+		for index in re.finditer("/buytickets/", self.__html) : 
+			left = index.start() 
+			right = self.__html.find(self.__location, left + 1)
+			name = self.__html[left:right]
+			
+			if name not in found : 
+				# print left, right, name
+				found.add(name)
+				for i in range(0, len(now_showing)) : 
+					if self.compare(left + len("/buytickets/"), right, now_showing[i][0]): 
+						# Url added here
+						now_showing[i] += (self.__html[left:self.__html.find("\"", left + 1)], ) 
+			
 		return now_showing
 
 	def get_coming_soon(self):
@@ -75,11 +115,11 @@ class BookMyShowClient(object):
 	def get_details(self):
 		if not self.__html:
 			self.__html = self.__download()
-
+			
 		venue = re.findall(self.VENUE_REGEX, self.__html)
 		venue_list = dict()
 		for row in venue:
-			venue_list[row[0]] = row[1]
+			venue_list[row[0]] = row[1]		# row[0] is venue code and row[1] is the venue name
 
 		details = re.findall(self.DETAILED_REGEX, self.__html)
 		show_list = []
@@ -136,6 +176,9 @@ def on_intent(request):
 
 # Returns a response to lambda_handler, which contains a list of movies showing in the your area and in your given dialect 
 def GetMoviesNowShowing(intent):
+	start = time.time()
+	print_now("Started at ::", start)
+
 	city = getSlotValue(intent, 'CITY').lower()
 	language = getSlotValue(intent, 'LANGUAGE').lower()	
 
@@ -145,6 +188,7 @@ def GetMoviesNowShowing(intent):
 	bms_client = BookMyShowClient(city)
 	try:
 		now_showing = bms_client.get_now_showing()
+		print_now("Recieved data from remote site at ::", start)
 	except Exception as e: 
 		print e.args 
 		print type(e) 
@@ -163,6 +207,7 @@ def GetMoviesNowShowing(intent):
 		if movie[5].lower() == language:
 			result.append([movie[0], movie[3]])
 
+	print_now("Response generated at ::", start)
 	if len(result) > 0:
 		outputSpeech, cardContent = getOSandCC(result)		
 		return response_plain_text(
@@ -175,7 +220,7 @@ def GetMoviesNowShowing(intent):
 		pass
 	else:
 		return response_plain_text(
-				"Bummer I couldn't find anything for that language. There may be movies showing in other languages, please try that.",
+				"Bummer, I couldn't find anything for that language. There may be movies showing in other languages, please try that.",
 				True,
 				{},
 				"Nothing to show",
@@ -191,7 +236,6 @@ def print_now(s, start) :
 def GetMovieDetails(intent):
 	start = time.time()
 	
-
 	city = getSlotValue(intent, 'CITY').lower()
 	movie_name = getSlotValue(intent, 'NAME').lower()
 	movie_name = movie_name.encode('ascii', 'ignore')
@@ -201,8 +245,9 @@ def GetMovieDetails(intent):
 	try:
 		now_showing = bms_client.get_now_showing()
 	except Exception as e: # Error
-		print(e.args)
-		print(type(e))
+		print "Error in retrieving data for GetMovieDetails - ", city, movie_name
+		print e.args 
+		print type(e) 
 		return response_plain_text(
 				"Something went wrong, I'm terribly sorry",
 				True,
@@ -224,14 +269,15 @@ def GetMovieDetails(intent):
 
 	all_show_details = {}
 	theatres_list = set()
-	Baseurl = "https://in.bookmyshow.com/buytickets/"
+	Baseurl = "https://in.bookmyshow.com"
 	Curdate = getDate()
 	Curtime = getTime()
 
 	all_data = []
 	for movie_info in movies_list: 
-		url = Baseurl + movie_info[0].replace(' ', '-').lower() + "-" + city.lower() + "/movie-" + city.lower() + "-" + movie_info[1] + "/" + Curdate
-		print("\n\nURL:: " + url + "\n\n")
+		url = Baseurl + movie_info[6]
+		# url = Baseurl + movie_info[0].replace(' ', '-').lower() + "-" + city.lower() + "/movie-" + city.lower() + "-" + movie_info[1] + "/" + Curdate
+		# print "URL:: " + url + "\n\n"
 		bms_client.set_url(url)
 		data = bms_client.get_details()
 		for row in data:
@@ -239,14 +285,18 @@ def GetMovieDetails(intent):
 			theatres_list.add(theatre_name)
 			all_data.append(row)
 
-	# print("List of Theatres : ", theatres_list)
+	print "List of Theatres : ", theatres_list, "\n\n" 
 	print_now("Got all data from remote site at::", start)
-	
-	multi_list = set()
 
 	# Slot value may be present here
 	multiplex = getSlotValue(intent, 'MULTIPLEX')
 	if multiplex != -1:
+		accepted_theatre_name = -1
+		if len(theatres_list) > 2 : 
+			accepted_theatre_name = getSlotValue(intent, 'THEATRE')
+			if accepted_theatre_name == -1 : 
+				return dialog_elicit_slot()
+
 		multiplex = multiplex.encode('ascii', 'ignore')
 		multiplex = multiplex.lower()		
 		show_details = dict()
@@ -269,7 +319,7 @@ def GetMovieDetails(intent):
 		cardContent = ""
 		i = 0 
 		for element, values in show_details.iteritems() : 
-			theatre_name = element[element.find(":") + 2: element.find(",")]
+			theatre_name = element[element.find(":") + 2: element.rfind(",")]
 			outputSpeech += "At " + theatre_name + ", "
 			cardContent += element + ":: "
 			i = 0
@@ -306,14 +356,25 @@ def GetMovieDetails(intent):
 		https://developer.amazon.com/docs/custom-skills/dialog-interface-reference.html#elicitslot
 		"""
 		outputSpeech = ""
+		multi_list = set()
 		for theatre in theatres_list:
 			sim = False
+			# check for already
 			for multi in multi_list:
 				if similar(multi, theatre[: theatre.find(":")]):
 					sim = True
 					break
 			if not sim:
 				multi_list.add(theatre[: theatre.find(":")])
+
+		if len(multi_list) <= 0: 
+			return response_plain_text(
+					"Sorry couldn't find anything for " + movie_name + " in " + city + ". Please try again for different movie.",
+					True, 
+					{},
+					"No results found",
+					"Could not find any available multiplexes for " + movie_name
+				)
 
 		i = 0
 		for multi in multi_list:
@@ -369,7 +430,17 @@ def similar(a, b):
 def getSlotValue(intent, slot):
 	if 'slots' in intent:
 		if slot in intent['slots']:
-			if 'value' in intent['slots'][slot]:
+			if intent['slots'][slot].has_key('resolutions') :
+				if intent['slots'][slot]['resolutions'].has_key('resolutionsPerAuthority') : 
+					if len(intent['slots'][slot]['resolutions']['resolutionsPerAuthority']) > 0 :
+						resolutions = intent['slots'][slot]['resolutions']['resolutionsPerAuthority'][0]
+						if resolutions.has_key('values') : 
+							if len(resolutions['values']) > 0 :
+								value = resolutions['values'][0]
+								if value.has_key('value') :
+									if value['value'].has_key('name') and len(value['value']['name']) > 0: 
+										return value['value']['name']
+			if 'value' in intent['slots'][slot] and len(intent['slots'][slot]['value']) > 0:
 				return intent['slots'][slot]['value']
 	
 	return -1
@@ -473,7 +544,7 @@ def response_plain_text(output, endsession, attributes, title, cardContent, repr
 	}
 
 
-def dialog_elicit_slot(output, city_name, movie_name):
+def dialog_elicit_slot(output, slotToElicit, city_name, movie_name, multiplex = None, theatre_name = None):
 	print output, "\n"
 	return {
 		"version": "1.0",
@@ -487,7 +558,7 @@ def dialog_elicit_slot(output, city_name, movie_name):
 			"directives": [
 				{
 					"type": "Dialog.ElicitSlot",
-					"slotToElicit": "MULTIPLEX",
+					"slotToElicit": slotToElicit,
 					"updatedIntent": {
 						"name": "GetMovieDetails",
 						"confirmationStatus": "NONE",
@@ -504,7 +575,13 @@ def dialog_elicit_slot(output, city_name, movie_name):
 							},
 							"MULTIPLEX": {
 								"name": "MULTIPLEX",
-								"confirmationStatus": "NONE"
+								"confirmationStatus": "NONE",
+								"value" : multiplex
+							},
+							"THEATRE": {
+								"name": "THEATRE",
+								"confirmationStatus": "NONE",
+								"value" : theatre_name
 							}
 						}
 					}

@@ -40,6 +40,8 @@
                         }
                     ],
                     "samples": [
+                        "tell me the names of the movies showing near me",
+                        "tell me the movies showing near me",
                         "tell me the movies which are showing in {CITY} in {LANGUAGE} language",
                         "tell me the movies which are showing in the {CITY}",
                         "tell me the movies showing in {CITY}",
@@ -47,6 +49,43 @@
                         "which all movies are showing ",
                         "which all movies are showing in {CITY}",
                         "are there any movies showing in {CITY}"
+                    ]
+                },
+                {
+                    "name": "GetMovieDetails",
+                    "slots": [
+                        {
+                            "name": "NAME",
+                            "type": "MovieName",
+                            "samples": [
+                                "I would like to watch {NAME}",
+                                "I want to watch {NAME}",
+                                "{NAME}"
+                            ]
+                        },
+                        {
+                            "name": "CITY",
+                            "type": "AMAZON.City"
+                        },
+                        {
+                            "name": "MULTIPLEX",
+                            "type": "MultiplexType"
+                        },
+                        {
+                            "name": "THEATRE",
+                            "type": "TheatreName"
+                        }
+                    ],
+                    "samples": [
+                        "When is the next show for {NAME}",
+                        "suggest me a movie",
+                        "I want to watch a movie",
+                        "tell me the show timings",
+                        "I want to watch {NAME} ",
+                        "tell me the names of the theatres which are showing the movie {NAME} ",
+                        "where can I see the movie {NAME} in {CITY}",
+                        "where is the movie {NAME} showing in {CITY}",
+                        "tell me the timings of {NAME}"
                     ]
                 }
             ],
@@ -109,6 +148,360 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "MovieName",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "Hope Aur Hum"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Iruttu Araiyil Murattu Kuththu"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Andaz Apna Apna"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Ranangan"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Aravindante Athidhikal"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Vantas"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Hichki"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Peter Rabbit"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "A Quiet Place"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Naa Peru Surya Naa Illu India"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "bharat ane nenu"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "baban"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "omerta"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "shikari"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "nude"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "mahanati"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "raazi"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "102 not out"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "october"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "infinity war"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Avengers infinity war"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Sonu ke titu ki sweety"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Batman vs Superman"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Batman"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Joker"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "3 Idiots"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Rampage"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Avengers"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "MultiplexType",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "Fun City Multiplex"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Cinepolis"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "City Pride"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "INOX"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "IMAX"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "PVR"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "AMAZON.City",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "mangaluru-mangalore",
+                                "synonyms": [
+                                    "mangalore",
+                                    "mangaluru"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "mysuru-mysore",
+                                "synonyms": [
+                                    "mysore",
+                                    "mysuru"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "vizag",
+                                "synonyms": [
+                                    "Waltair",
+                                    "Visakhapatnam"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "goa",
+                                "synonyms": [
+                                    "panjim",
+                                    "Panaji"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "belagavi-belgaum",
+                                "synonyms": [
+                                    "belgaum",
+                                    "belagavi"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Pondicherry",
+                                "synonyms": [
+                                    "Puducherry"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "kolkata",
+                                "synonyms": [
+                                    "calcutta"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "cochin",
+                                "synonyms": [
+                                    "kochi"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "chennai",
+                                "synonyms": [
+                                    "madras"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "mumbai",
+                                "synonyms": [
+                                    "bombay"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Thiruvananthapuram ",
+                                "synonyms": [
+                                    "trivandrum"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Vadodara",
+                                "synonyms": [
+                                    "baroda"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "bengaluru",
+                                "synonyms": [
+                                    "banglore"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TheatreName",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "Old Madras Road "
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": " Signature Mall, Old Madras Road"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Yelahanka New Town "
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": " Jalahalli"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Central, JP Nagar, Mantri Junction "
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Garuda Mall, Magrath Road "
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Garuda Swagath Mall, Jayanaga"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Brookefield Mall"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": " Mantri Square, Malleshwaram "
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": " Tavarekere "
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Phoenix Marketcity Mall, Whitefield Road"
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -116,28 +509,62 @@
             "intents": [
                 {
                     "name": "GetMoviesNowShowing",
-                    "confirmationRequired": false,
-                    "prompts": {},
+                    "confirmationRequired": true,
+                    "prompts": {
+                        "confirmation": "Confirm.Intent.1000740188503"
+                    },
                     "slots": [
                         {
                             "name": "CITY",
                             "type": "AMAZON.City",
-                            "confirmationRequired": true,
+                            "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "confirmation": "Confirm.Slot.562342651674.146994143516",
                                 "elicitation": "Elicit.Slot.1418075056364.1387742715141"
                             }
                         },
                         {
                             "name": "LANGUAGE",
                             "type": "RegionalLanguage",
-                            "confirmationRequired": true,
+                            "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "confirmation": "Confirm.Slot.562342651674.294696123619",
                                 "elicitation": "Elicit.Slot.1418075056364.283526805104"
                             }
+                        }
+                    ]
+                },
+                {
+                    "name": "GetMovieDetails",
+                    "confirmationRequired": true,
+                    "prompts": {
+                        "confirmation": "Confirm.Intent.1313611451407"
+                    },
+                    "slots": [
+                        {
+                            "name": "NAME",
+                            "type": "MovieName",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.591782647414.1385743245249"
+                            }
+                        },
+                        {
+                            "name": "CITY",
+                            "type": "AMAZON.City",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.591782647414.754597950603"
+                            }
+                        },
+                        {
+                            "name": "MULTIPLEX",
+                            "type": "MultiplexType",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
                         }
                     ]
                 }
@@ -205,6 +632,66 @@
                     {
                         "type": "PlainText",
                         "value": "you wish to watch your movie in {LANGUAGE} right?"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Intent.1000740188503",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "you wish to know all the movies showing in {LANGUAGE} language in {CITY} . Is that correct?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.591782647414.1385743245249",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "which movie should I look for?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "I would like to know the name of the movie first"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "which movie do you wish to watch?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "please tell me the name of the movie"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.591782647414.754597950603",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "and which city should I look for?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "which city do you live in?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "please tell me your location"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "I would also like to know your city"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Intent.1313611451407",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "You wish to watch {NAME}  in {MULTIPLEX} , in {CITY} . Is that correct?"
                     }
                 ]
             }

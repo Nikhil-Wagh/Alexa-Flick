@@ -49,13 +49,13 @@
 			"slots": {
 				"CITY": {
 					"name": "CITY",
-					"value": "pune",
+					"value": "bengaluru",
 					"confirmationStatus": "NONE"
 				},
 				"MULTIPLEX": {
 					"name": "MULTIPLEX",
 					"confirmationStatus": "NONE",
-					"value" : "Carnival"
+					"value" : "pvr"
 				},
 				"NAME": {
 					"name": "NAME",
