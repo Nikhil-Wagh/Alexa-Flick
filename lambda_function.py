@@ -65,16 +65,16 @@ class BookMyShowClient(object):
 		html = req.text
 		return html.encode('ascii', 'ignore')
 
-	def compare(self, left, right, movie_name) : 
+	def compare(self, left, right, movie_name, text) : 
 		i = left
 		j = 0
 		while i < right and j < len(movie_name): 
 			if not movie_name[j].isalnum() : 
 				j += 1
-			if not self.__html[i].isalnum() : 
+			if not text[i].isalnum() : 
 				i += 1
-			if (j < len(movie_name) and i < right) and (movie_name[j].isalnum() and self.__html[i].isalnum()) : 
-				if movie_name[j].lower() != self.__html[i].lower() : 
+			if (j < len(movie_name) and i < right) and (movie_name[j].isalnum() and text[i].isalnum()) : 
+				if movie_name[j].lower() != text[i].lower() : 
 					return False
 				else : 
 					i += 1
@@ -100,10 +100,29 @@ class BookMyShowClient(object):
 				# print left, right, name
 				found.add(name)
 				for i in range(0, len(now_showing)) : 
-					if self.compare(left + len("/buytickets/"), right, now_showing[i][0]): 
+					if self.compare(left + len("/buytickets/"), right, now_showing[i][0], self.__html): 
 						# Url added here
-						now_showing[i] += (self.__html[left:self.__html.find("\"", left + 1)], ) 
-			
+						now_showing[i] += ("https://in.bookmyshow.com" + self.__html[left:self.__html.find("\"", left + 1)], ) 
+						break
+
+		found.clear()
+
+		image_urls = re.findall("data-src=\"(.*?)\"", self.__html)
+		for url in image_urls : 
+			left = url.find("/large/") + len("/large/")
+			right = len(url) - 35 # 35 characters at the end do not contribute to the name of the movie
+			name = url[left : right]
+			print name, url, "\n"
+
+			if name not in found : 
+				found.add(name)
+				for i in range(0, len(now_showing)) : 
+					if self.compare(left, right, now_showing[i][0], url) :
+						now_showing[i] += ("https:" + url, )
+						break
+		
+		for row in now_showing:
+			print row, "\n"
 		return now_showing
 
 	def get_coming_soon(self):
@@ -269,13 +288,12 @@ def GetMovieDetails(intent):
 
 	all_show_details = {}
 	theatres_list = set()
-	Baseurl = "https://in.bookmyshow.com"
 	Curdate = getDate()
 	Curtime = getTime()
 
 	all_data = []
 	for movie_info in movies_list: 
-		url = Baseurl + movie_info[6]
+		url = movie_info[6]
 		# url = Baseurl + movie_info[0].replace(' ', '-').lower() + "-" + city.lower() + "/movie-" + city.lower() + "-" + movie_info[1] + "/" + Curdate
 		# print "URL:: " + url + "\n\n"
 		bms_client.set_url(url)
