@@ -166,6 +166,40 @@ def on_launch(event, context):
 	return response_plain_text(welcomeMessage, False, {}, "Welcome", welcomeMessage, "How can I help you?")
 
 
+def elicit_slot(attributes, outputSpeech, slotToElicit, intent_name, confirmationStatus, slots):
+	return {
+		"version": "1.0",
+		"sessionAttributes": attributes,
+		"response": {
+			"outputSpeech": {
+				"type": "PlainText",
+				"text": outputSpeech
+			},
+			"shouldEndSession": False,
+			"directives": [
+				{
+					"type": "Dialog.ElicitSlot",
+					"slotToElicit": slotToElicit,
+					"updatedIntent": {
+						"name": intent_name,
+						"confirmationStatus": confirmationStatus,
+						"slots": slots
+					}
+				}
+			]
+		}
+	}
+
+def updateSlots(original, custom):
+	slots = {}
+	for slot_name, slot in original.iteritems():
+		temp = dict()
+		temp['name'] = slot_name
+		temp['value'] = custom[slot_name]['value'] if custom.has_key(slot_name) else ""
+		print temp
+		slots[slot_name] = temp
+	return slots
+
 def on_intent(event):
 	request = event['request']
 	intent = request['intent']
@@ -180,14 +214,27 @@ def on_intent(event):
 
 	# DialogState has to be returned only for non built-in intents
 	if 'dialogState' in request:
-		if request['dialogState'] == "STARTED" or request['dialogState'] == "IN_PROGRESS":
-			return dialog_response(request['dialogState'], False)
-		elif request['dialogState'] == "COMPLETED" and intent['confirmationStatus'] == "DENIED":
-			updatedIntent = {
-				"name" : intent_name,
-				"confirmationStatus" : "NONE"
+		if intent['confirmationStatus'] == "DENIED":
+			return {
+				'version': '1.0',
+				'sessionAttributes': {},
+				'response':{
+					'directives': [
+						{
+							'type': 'Dialog.Delegate',
+							'updatedIntent' : {
+								'name': intent_name,
+								'confirmationStatus': 'NONE',
+								'slots': updateSlots(intent['slots'], {})
+							}
+						}
+					],
+					'shouldEndSession': False
+				}
 			}
-			return dialog_response(request['dialogState'], False, updatedIntent)
+		elif request['dialogState'] == "STARTED" or request['dialogState'] == "IN_PROGRESS":
+			return dialog_response(request['dialogState'], False)
+			
 
 	if intent_name == 'GetMoviesNowShowing':
 		return GetMoviesNowShowing(intent)
@@ -441,7 +488,7 @@ def GetMovieDetails(event) :
 			if not sim:
 				available_multiplexes.append(theatre[: last])
 
-		if len(available_multiplexes) > 3 or len(available_theatres) > 3: 
+		if len(available_multiplexes) > 2: 
 			i = 0
 			outputSpeech = ""
 			for multi in available_multiplexes:
@@ -529,6 +576,7 @@ def getOSandCC(results):
 		if i == len(results) - 2 and i != 0 :
 			outputSpeech += "and "
 		i += 1
+	outputSpeech += "."
 
 	return outputSpeech, cardContent
 
@@ -658,10 +706,10 @@ def dialog_response(attributes, endsession, updatedIntent = None):
 		}
 	}
 
-def response_plain_text(output, endsession, attributes, title, cardContent, repromt = ""):
-	print("\n")
-	print(output)
-	print("\n")
+def response_plain_text(output, endsession, attributes, title, cardContent, repromt = "How can I help you?"):
+	print "\n", output, "\n" 
+	print title
+	print cardContent
 	attributes['lastSpeech'] = output
 	""" create a simple json plain text response  """
 	return {
@@ -674,8 +722,8 @@ def response_plain_text(output, endsession, attributes, title, cardContent, repr
 			},
 			'card' : {
 				'type' : 'Simple',
-				'title' : title,
-				'content' : cardContent    
+				'title' : "title",
+				'content' : "cardContent"    
 			},
 			'repromt' : {
 				'outputSpeech' : {
