@@ -1,0 +1,104 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": false,
+		"sessionId": "amzn1.echo-api.session.e1b4ae7c-0bf2-413f-b7f1-d36388ff6220",
+		"application": {
+			"applicationId": "amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db"
+		},
+		"user": {
+			"userId": "amzn1.ask.account.AFHG3ZTUSMZRO3ELD3WRVOQ4TUGSXBNJUM4XMDARNLV3RD6B3LBWTZ6AYGNFLZ2HSGOY4O4DTILYYLE52K66ZHSMWWAOOV4PHONHVJXWGUDCGEG5ARGILWI3VMRWRGENWSDVVLMLAHTQU4TTOV2W3ZEHMWYA2I66N54S3HFLKO3J7WOOG6TV2ZGO3ZVQ7SBEZ36W4FGFEQO26MQ"
+		}
+	},
+	"context": {
+		"AudioPlayer": {
+			"playerActivity": "IDLE"
+		},
+		"Display": {
+			"token": ""
+		},
+		"System": {
+			"application": {
+				"applicationId": "amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db"
+			},
+			"user": {
+				"userId": "amzn1.ask.account.AFHG3ZTUSMZRO3ELD3WRVOQ4TUGSXBNJUM4XMDARNLV3RD6B3LBWTZ6AYGNFLZ2HSGOY4O4DTILYYLE52K66ZHSMWWAOOV4PHONHVJXWGUDCGEG5ARGILWI3VMRWRGENWSDVVLMLAHTQU4TTOV2W3ZEHMWYA2I66N54S3HFLKO3J7WOOG6TV2ZGO3ZVQ7SBEZ36W4FGFEQO26MQ"
+			},
+			"device": {
+				"deviceId": "amzn1.ask.device.AHFZTJ2KCRGA6NAMNGMYQMX72XFOZNMERBDWTATJIB7TWUDZ442SAHPFFLVXSARRTAJIHHE3PWGS7QLDZBBPRODJAMWQWDAVIC2USLDWEVC4S27FPFQSRUVVOJ2D5OGILPQAXPLQUORANGMAXRH4M6VUIGHQ",
+				"supportedInterfaces": {
+					"AudioPlayer": {},
+					"Display": {
+						"templateVersion": "1.0",
+						"markupVersion": "1.0"
+					}
+				}
+			},
+			"apiEndpoint": "https://api.eu.amazonalexa.com",
+			"apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmNjMDc5MjRlLTU1MTktNGJlOS04NTRmLWVlYWYwNzIwYTRkYiIsImV4cCI6MTUyODE5NjkxMCwiaWF0IjoxNTI4MTkzMzEwLCJuYmYiOjE1MjgxOTMzMTAsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUhGWlRKMktDUkdBNk5BTU5HTVlRTVg3MlhGT1pOTUVSQkRXVEFUSklCN1RXVURaNDQyU0FIUEZGTFZYU0FSUlRBSklISEUzUFdHUzdRTERaQkJQUk9ESkFNV1FXREFWSUMyVVNMRFdFVkM0UzI3RlBGUVNSVVZWT0oyRDVPR0lMUFFBWFBMUVVPUkFOR01BWFJINE02VlVJR0hRIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUZIRzNaVFVTTVpSTzNFTEQzV1JWT1E0VFVHU1hCTkpVTTRYTURBUk5MVjNSRDZCM0xCV1RaNkFZR05GTFoySFNHT1k0TzREVElMWVlMRTUySzY2WkhTTVdXQU9PVjRQSE9OSFZKWFdHVURDR0VHNUFSR0lMV0kzVk1SV1JHRU5XU0RWVkxNTEFIVFFVNFRUT1YyVzNaRUhNV1lBMkk2Nk41NFMzSEZMS08zSjdXT09HNlRWMlpHTzNaVlE3U0JFWjM2VzRGR0ZFUU8yNk1RIn19.a8-bKzW8w0AuXYXdjO1W-HvYH4X4o-IZZEW7LDQ1TFhMFjh1DtbJvBdQxa7xREd5Bhy3DDOi8aFDOA__JR6Sp-RUrJx3NwtodY4NElHsRL_U2harQw5fWWUhdngSUGeOa0Yljf7DQ8TDSobse6J7OBQyZuM2Bpys3BNWTQ99hBdoTb3fGVE5smh6mtTSsH5k5WMfqLvJCV-gbU0MeXChbrGiS2pMupQaJ3ZUmWRfMJobOodSPMi2WpNUX5_h35-nNsGFWI80S00y-ddR8tlqVPuuQkKjAKijaFCpq1GI2zlfKAajV6UYOrB31h-HmAMg7ZPPnSJsS_1EqIjfEcWzCQ"
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.d8b17072-7062-44b1-a464-33e6e87f8419",
+		"timestamp": "2018-06-05T10:08:30Z",
+		"locale": "en-IN",
+		"intent": {
+			"name": "GetMovieDetails",
+			"confirmationStatus": "CONFIRMED",
+			"slots": {
+				"CITY": {
+					"name": "CITY",
+					"value": "nashik",
+					"confirmationStatus": "NONE"
+				},
+				"THEATRE": {
+					"name": "THEATRE",
+					"value": "the zone",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.TheatreName",
+								"status": {
+									"code": "ER_SUCCESS_NO_MATCH"
+								}
+							}
+						]
+					},
+					"confirmationStatus": "NONE"
+				},
+				"MULTIPLEX": {
+					"name": "MULTIPLEX",
+					"value": "cinemax",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.MultiplexType",
+								"status": {
+									"code": "ER_SUCCESS_NO_MATCH"
+								}
+							}
+						]
+					},
+					"confirmationStatus": "NONE"
+				},
+				"NAME": {
+					"name": "NAME",
+					"value": "farzand",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.MovieName",
+								"status": {
+									"code": "ER_SUCCESS_NO_MATCH"
+								}
+							}
+						]
+					},
+					"confirmationStatus": "NONE"
+				}
+			}
+		},
+		"dialogState": "COMPLETED"
+	}
+}

@@ -1,0 +1,565 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": false,
+		"sessionId": "amzn1.echo-api.session.4462e7a7-1f48-4c66-aa58-c3c9041a988c",
+		"application": {
+			"applicationId": "amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db"
+		},
+		"attributes": {
+			"all_data": [
+				{
+					"show_time": "09:05 AM",
+					"theatre_name": "INOX: Forum Neighbourhood Mall, Whitefield",
+					"max_price": "150.00",
+					"min_price": "130.00",
+					"time_code": "0905",
+					"class": "morning"
+				},
+				{
+					"show_time": "12:35 PM",
+					"theatre_name": "INOX: Forum Neighbourhood Mall, Whitefield",
+					"max_price": "170.00",
+					"min_price": "160.00",
+					"time_code": "1235",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "03:30 PM",
+					"theatre_name": "INOX: Forum Neighbourhood Mall, Whitefield",
+					"max_price": "170.00",
+					"min_price": "160.00",
+					"time_code": "1530",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "09:50 PM",
+					"theatre_name": "INOX: Forum Neighbourhood Mall, Whitefield",
+					"max_price": "170.00",
+					"min_price": "160.00",
+					"time_code": "2150",
+					"class": "night"
+				},
+				{
+					"show_time": "10:00 AM",
+					"theatre_name": "INOX: Mantri Square, Malleshwaram",
+					"max_price": "250.00",
+					"min_price": "118.00",
+					"time_code": "1000",
+					"class": "morning"
+				},
+				{
+					"show_time": "04:25 PM",
+					"theatre_name": "INOX: Mantri Square, Malleshwaram",
+					"max_price": "350.00",
+					"min_price": "180.00",
+					"time_code": "1625",
+					"class": "evening"
+				},
+				{
+					"show_time": "07:00 PM",
+					"theatre_name": "INOX: Mantri Square, Malleshwaram",
+					"max_price": "350.00",
+					"min_price": "200.00",
+					"time_code": "1900",
+					"class": "night"
+				},
+				{
+					"show_time": "09:55 PM",
+					"theatre_name": "INOX: Mantri Square, Malleshwaram",
+					"max_price": "500.00",
+					"min_price": "500.00",
+					"time_code": "2155",
+					"class": "night"
+				},
+				{
+					"show_time": "10:05 AM",
+					"theatre_name": "INOX: Brookefield Mall",
+					"max_price": "140.00",
+					"min_price": "118.00",
+					"time_code": "1005",
+					"class": "morning"
+				},
+				{
+					"show_time": "06:55 PM",
+					"theatre_name": "INOX: Brookefield Mall",
+					"max_price": "170.00",
+					"min_price": "150.00",
+					"time_code": "1855",
+					"class": "evening"
+				},
+				{
+					"show_time": "10:25 AM",
+					"theatre_name": "INOX: Central, JP Nagar, Mantri Junction",
+					"max_price": "190.00",
+					"min_price": "118.00",
+					"time_code": "1025",
+					"class": "morning"
+				},
+				{
+					"show_time": "01:06 PM",
+					"theatre_name": "INOX: Central, JP Nagar, Mantri Junction",
+					"max_price": "290.00",
+					"min_price": "180.00",
+					"time_code": "1306",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "06:45 PM",
+					"theatre_name": "INOX: Central, JP Nagar, Mantri Junction",
+					"max_price": "290.00",
+					"min_price": "210.00",
+					"time_code": "1845",
+					"class": "evening"
+				},
+				{
+					"show_time": "11:05 AM",
+					"theatre_name": "INOX: Garuda Mall, Magrath Road",
+					"max_price": "300.00",
+					"min_price": "118.00",
+					"time_code": "1105",
+					"class": "morning"
+				},
+				{
+					"show_time": "02:00 PM",
+					"theatre_name": "INOX: Garuda Mall, Magrath Road",
+					"max_price": "400.00",
+					"min_price": "256.00",
+					"time_code": "1400",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "03:35 PM",
+					"theatre_name": "INOX: Garuda Mall, Magrath Road",
+					"max_price": "450.00",
+					"min_price": "450.00",
+					"time_code": "1535",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "06:55 PM",
+					"theatre_name": "INOX: Garuda Mall, Magrath Road",
+					"max_price": "400.00",
+					"min_price": "256.00",
+					"time_code": "1855",
+					"class": "evening"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "INOX: Garuda Mall, Magrath Road",
+					"max_price": "400.00",
+					"min_price": "256.00",
+					"time_code": "2200",
+					"class": "night"
+				},
+				{
+					"show_time": "12:00 PM",
+					"theatre_name": "Gopalan Grand Mall: Old Madras Road",
+					"max_price": "200.00",
+					"min_price": "200.00",
+					"time_code": "1200",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "09:45 PM",
+					"theatre_name": "Gopalan Grand Mall: Old Madras Road",
+					"max_price": "230.00",
+					"min_price": "230.00",
+					"time_code": "2145",
+					"class": "night"
+				},
+				{
+					"show_time": "12:20 PM",
+					"theatre_name": "INOX: Garuda Swagath Mall, Jayanagar",
+					"max_price": "180.00",
+					"min_price": "180.00",
+					"time_code": "1220",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "03:50 PM",
+					"theatre_name": "INOX: Garuda Swagath Mall, Jayanagar",
+					"max_price": "210.00",
+					"min_price": "210.00",
+					"time_code": "1550",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "INOX: Garuda Swagath Mall, Jayanagar",
+					"max_price": "210.00",
+					"min_price": "210.00",
+					"time_code": "2200",
+					"class": "night"
+				},
+				{
+					"show_time": "12:50 PM",
+					"theatre_name": "INOX Lido: Off MG Road, Ulsoor",
+					"max_price": "340.00",
+					"min_price": "210.00",
+					"time_code": "1250",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "06:50 PM",
+					"theatre_name": "INOX Lido: Off MG Road, Ulsoor",
+					"max_price": "340.00",
+					"min_price": "240.00",
+					"time_code": "1850",
+					"class": "evening"
+				},
+				{
+					"show_time": "01:30 PM",
+					"theatre_name": "Sri Vajreshwari Theatre: Ullal",
+					"max_price": "120.00",
+					"min_price": "100.00",
+					"time_code": "1330",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "04:30 PM",
+					"theatre_name": "Sri Vajreshwari Theatre: Ullal",
+					"max_price": "120.00",
+					"min_price": "100.00",
+					"time_code": "1630",
+					"class": "evening"
+				},
+				{
+					"show_time": "07:30 PM",
+					"theatre_name": "Sri Vajreshwari Theatre: Ullal",
+					"max_price": "120.00",
+					"min_price": "100.00",
+					"time_code": "1930",
+					"class": "night"
+				},
+				{
+					"show_time": "01:30 PM",
+					"theatre_name": "Vaishnavi A\\/C Theatre: Uttarahalli",
+					"max_price": "120.00",
+					"min_price": "100.00",
+					"time_code": "1330",
+					"class": "afternoon"
+				},
+				{
+					"show_time": "04:30 PM",
+					"theatre_name": "Vaishnavi A\\/C Theatre: Uttarahalli",
+					"max_price": "120.00",
+					"min_price": "100.00",
+					"time_code": "1630",
+					"class": "evening"
+				},
+				{
+					"show_time": "07:30 PM",
+					"theatre_name": "Vaishnavi A\\/C Theatre: Uttarahalli",
+					"max_price": "120.00",
+					"min_price": "100.00",
+					"time_code": "1930",
+					"class": "night"
+				},
+				{
+					"show_time": "06:35 PM",
+					"theatre_name": "PVR: Gold, Forum Mall, Koramangala",
+					"max_price": "700.00",
+					"min_price": "600.00",
+					"time_code": "1835",
+					"class": "evening"
+				},
+				{
+					"show_time": "06:35 PM",
+					"theatre_name": "Fun Cinemas: Sigma Mall, Bengaluru",
+					"max_price": "150.00",
+					"min_price": "150.00",
+					"time_code": "1835",
+					"class": "evening"
+				},
+				{
+					"show_time": "06:45 PM",
+					"theatre_name": "Gopalan Cinemas: Bannerghatta Road",
+					"max_price": "200.00",
+					"min_price": "200.00",
+					"time_code": "1845",
+					"class": "evening"
+				},
+				{
+					"show_time": "06:45 PM",
+					"theatre_name": "PVR: VR GOLD, VR Bengaluru, Whitefield Road",
+					"max_price": "700.00",
+					"min_price": "600.00",
+					"time_code": "1845",
+					"class": "evening"
+				},
+				{
+					"show_time": "06:45 PM",
+					"theatre_name": "PVR: Forum Mall, Koramangala",
+					"max_price": "350.00",
+					"min_price": "200.00",
+					"time_code": "1845",
+					"class": "evening"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "PVR: Forum Mall, Koramangala",
+					"max_price": "350.00",
+					"min_price": "200.00",
+					"time_code": "2200",
+					"class": "night"
+				},
+				{
+					"show_time": "06:50 PM",
+					"theatre_name": "Cinepolis: Orion East Mall, Banaswadi",
+					"max_price": "150.00",
+					"min_price": "150.00",
+					"time_code": "1850",
+					"class": "evening"
+				},
+				{
+					"show_time": "07:00 PM",
+					"theatre_name": "PVR: Orion Mall, Dr Rajkumar Road",
+					"max_price": "250.00",
+					"min_price": "170.00",
+					"time_code": "1900",
+					"class": "night"
+				},
+				{
+					"show_time": "09:55 PM",
+					"theatre_name": "PVR: Orion Mall, Dr Rajkumar Road",
+					"max_price": "350.00",
+					"min_price": "170.00",
+					"time_code": "2155",
+					"class": "night"
+				},
+				{
+					"show_time": "07:00 PM",
+					"theatre_name": "PVR: VR Bengaluru, Whitefield Road",
+					"max_price": "210.00",
+					"min_price": "190.00",
+					"time_code": "1900",
+					"class": "night"
+				},
+				{
+					"show_time": "07:00 PM",
+					"theatre_name": "PVR: Vega City,  Bannerghatta Road",
+					"max_price": "350.00",
+					"min_price": "190.00",
+					"time_code": "1900",
+					"class": "night"
+				},
+				{
+					"show_time": "07:10 PM",
+					"theatre_name": "PVR: Central Spirit Mall, Bellandur",
+					"max_price": "390.00",
+					"min_price": "210.00",
+					"time_code": "1910",
+					"class": "night"
+				},
+				{
+					"show_time": "07:30 PM",
+					"theatre_name": "Pruthvi 2k A\\/c Harkness Projection: Nagavara",
+					"max_price": "120.00",
+					"min_price": "100.00",
+					"time_code": "1930",
+					"class": "night"
+				},
+				{
+					"show_time": "09:45 PM",
+					"theatre_name": "Pruthvi 2k A\\/c Harkness Projection: Nagavara",
+					"max_price": "120.00",
+					"min_price": "100.00",
+					"time_code": "2145",
+					"class": "night"
+				},
+				{
+					"show_time": "09:10 PM",
+					"theatre_name": "PVR: Gold, Vega City, Bannerghatta Road",
+					"max_price": "600.00",
+					"min_price": "500.00",
+					"time_code": "2110",
+					"class": "night"
+				},
+				{
+					"show_time": "09:35 PM",
+					"theatre_name": "Cinepolis: Royal Meenakshi Mall",
+					"max_price": "150.00",
+					"min_price": "150.00",
+					"time_code": "2135",
+					"class": "night"
+				},
+				{
+					"show_time": "09:50 PM",
+					"theatre_name": "PVR: Phoenix Marketcity Mall, Whitefield Road",
+					"max_price": "350.00",
+					"min_price": "190.00",
+					"time_code": "2150",
+					"class": "night"
+				},
+				{
+					"show_time": "09:55 PM",
+					"theatre_name": "PVR: MSR Elements Mall, Tanisandhra Main Road",
+					"max_price": "350.00",
+					"min_price": "210.00",
+					"time_code": "2155",
+					"class": "night"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "PVR: Vaishnavi Sapphire Mall, Yeshwanthpur",
+					"max_price": "230.00",
+					"min_price": "190.00",
+					"time_code": "2200",
+					"class": "night"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "Cinepolis: Binnypet Mall",
+					"max_price": "350.00",
+					"min_price": "200.00",
+					"time_code": "2200",
+					"class": "night"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "PVR: Arena Mall, Doddanakundi, Marthalli Ring Road",
+					"max_price": "350.00",
+					"min_price": "190.00",
+					"time_code": "2200",
+					"class": "night"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "Rex Theatre: Brigade Road",
+					"max_price": "118.00",
+					"min_price": "110.00",
+					"time_code": "2200",
+					"class": "night"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "Gopalan Cinemas: Arcade Mall, Mysore Road",
+					"max_price": "300.00",
+					"min_price": "200.00",
+					"time_code": "2200",
+					"class": "night"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "SPI: The Cinema-GT World Mall, Magadi Road",
+					"max_price": "350.00",
+					"min_price": "180.00",
+					"time_code": "2200",
+					"class": "night"
+				}
+			],
+			"lastSpeech": "These are the theatres, Forum Neighbourhood Mall, Mantri Square, Brookefield Mall, Garuda Swagath Mall, Garuda Mall, Central  JP Nagar, and Off MG Road. Please select one out of these."
+		},
+		"user": {
+			"userId": "amzn1.ask.account.AFHG3ZTUSMZRO3ELD3WRVOQ4TUGSXBNJUM4XMDARNLV3RD6B3LBWTZ6AYGNFLZ2HSGOY4O4DTILYYLE52K66ZHSMWWAOOV4PHONHVJXWGUDCGEG5ARGILWI3VMRWRGENWSDVVLMLAHTQU4TTOV2W3ZEHMWYA2I66N54S3HFLKO3J7WOOG6TV2ZGO3ZVQ7SBEZ36W4FGFEQO26MQ"
+		}
+	},
+	"context": {
+		"AudioPlayer": {
+			"playerActivity": "IDLE"
+		},
+		"Display": {
+			"token": ""
+		},
+		"System": {
+			"application": {
+				"applicationId": "amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db"
+			},
+			"user": {
+				"userId": "amzn1.ask.account.AFHG3ZTUSMZRO3ELD3WRVOQ4TUGSXBNJUM4XMDARNLV3RD6B3LBWTZ6AYGNFLZ2HSGOY4O4DTILYYLE52K66ZHSMWWAOOV4PHONHVJXWGUDCGEG5ARGILWI3VMRWRGENWSDVVLMLAHTQU4TTOV2W3ZEHMWYA2I66N54S3HFLKO3J7WOOG6TV2ZGO3ZVQ7SBEZ36W4FGFEQO26MQ"
+			},
+			"device": {
+				"deviceId": "amzn1.ask.device.AHFZTJ2KCRGA6NAMNGMYQMX72XFOZNMERBDWTATJIB7TWUDZ442SAHPFFLVXSARRTAJIHHE3PWGS7QLDZBBPRODJAMWQWDAVIC2USLDWEVC4S27FPFQSRUVVOJ2D5OGILPQAXPLQUORANGMAXRH4M6VUIGHQ",
+				"supportedInterfaces": {
+					"AudioPlayer": {},
+					"Display": {
+						"templateVersion": "1.0",
+						"markupVersion": "1.0"
+					}
+				}
+			},
+			"apiEndpoint": "https://api.eu.amazonalexa.com",
+			"apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmNjMDc5MjRlLTU1MTktNGJlOS04NTRmLWVlYWYwNzIwYTRkYiIsImV4cCI6MTUyODIwNjU4NiwiaWF0IjoxNTI4MjAyOTg2LCJuYmYiOjE1MjgyMDI5ODYsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUhGWlRKMktDUkdBNk5BTU5HTVlRTVg3MlhGT1pOTUVSQkRXVEFUSklCN1RXVURaNDQyU0FIUEZGTFZYU0FSUlRBSklISEUzUFdHUzdRTERaQkJQUk9ESkFNV1FXREFWSUMyVVNMRFdFVkM0UzI3RlBGUVNSVVZWT0oyRDVPR0lMUFFBWFBMUVVPUkFOR01BWFJINE02VlVJR0hRIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUZIRzNaVFVTTVpSTzNFTEQzV1JWT1E0VFVHU1hCTkpVTTRYTURBUk5MVjNSRDZCM0xCV1RaNkFZR05GTFoySFNHT1k0TzREVElMWVlMRTUySzY2WkhTTVdXQU9PVjRQSE9OSFZKWFdHVURDR0VHNUFSR0lMV0kzVk1SV1JHRU5XU0RWVkxNTEFIVFFVNFRUT1YyVzNaRUhNV1lBMkk2Nk41NFMzSEZMS08zSjdXT09HNlRWMlpHTzNaVlE3U0JFWjM2VzRGR0ZFUU8yNk1RIn19.jaOpL8vW7XxJuAb_02P94vIqOMiVg7fVLRRLOPrSUBfI3FYpVuU7Y6uDik7HXKPSoXj_dKP_sQlgRi5V65vprPnfp1iOBD8tpW98vPslycHbNovm-HQ8xK-2Dpx0qWO80m555IzLi3v5Dptm8ATqaQ4r3NutvumfP2boQJNFZ7kROdkc0Tg1no-70OlG94hykyVtl5fXIGJDgqBiSFZEr9r-qAqcApbCudu5PvBdFjOhf4tM2UPly5UHDOoByrW_QluvCU3fSqf3I1emDvrbZa2dxLaX1fC0eLZYu43Z4ZAGBS_7Okspn4io_rNBTdbN0MnlYgnXjDJCuMrCJcxA9A"
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.b91fa4ed-5cd0-4bca-8382-845201c3a497",
+		"timestamp": "2018-06-05T12:49:46Z",
+		"locale": "en-IN",
+		"intent": {
+			"name": "GetMovieDetails",
+			"confirmationStatus": "CONFIRMED",
+			"slots": {
+				"CITY": {
+					"name": "CITY",
+					"value": "bengaluru",
+					"confirmationStatus": "CONFIRMED"
+				},
+				"THEATRE": {
+					"name": "THEATRE",
+					"value": "Garuda mall",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.TheatreName",
+								"status": {
+									"code": "ER_SUCCESS_NO_MATCH"
+								}
+							}
+						]
+					},
+					"confirmationStatus": "NONE"
+				},
+				"MULTIPLEX": {
+					"name": "MULTIPLEX",
+					"value": "inox",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.MultiplexType",
+								"status": {
+									"code": "ER_SUCCESS_MATCH"
+								},
+								"values": [
+									{
+										"value": {
+											"name": "INOX",
+											"id": "f11a7f30ce8c69228ad4169ca3c99270"
+										}
+									}
+								]
+							}
+						]
+					},
+					"confirmationStatus": "CONFIRMED"
+				},
+				"NAME": {
+					"name": "NAME",
+					"value": "raazi",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.MovieName",
+								"status": {
+									"code": "ER_SUCCESS_MATCH"
+								},
+								"values": [
+									{
+										"value": {
+											"name": "raazi",
+											"id": "de5f29c6bc33b7b6d885a0168be271a5"
+										}
+									}
+								]
+							}
+						]
+					},
+					"confirmationStatus": "CONFIRMED"
+				}
+			}
+		},
+		"dialogState": "COMPLETED"
+	}
+}
