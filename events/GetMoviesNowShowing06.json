@@ -1,0 +1,100 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": false,
+		"sessionId": "amzn1.echo-api.session.4b35fd37-147f-4038-bbc6-34c0dc8dc586",
+		"application": {
+			"applicationId": "amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db"
+		},
+		"user": {
+			"userId": "amzn1.ask.account.AFHG3ZTUSMZRO3ELD3WRVOQ4TUGSXBNJUM4XMDARNLV3RD6B3LBWTZ6AYGNFLZ2HSGOY4O4DTILYYLE52K66ZHSMWWAOOV4PHONHVJXWGUDCGEG5ARGILWI3VMRWRGENWSDVVLMLAHTQU4TTOV2W3ZEHMWYA2I66N54S3HFLKO3J7WOOG6TV2ZGO3ZVQ7SBEZ36W4FGFEQO26MQ"
+		}
+	},
+	"context": {
+		"AudioPlayer": {
+			"playerActivity": "IDLE"
+		},
+		"Display": {
+			"token": ""
+		},
+		"System": {
+			"application": {
+				"applicationId": "amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db"
+			},
+			"user": {
+				"userId": "amzn1.ask.account.AFHG3ZTUSMZRO3ELD3WRVOQ4TUGSXBNJUM4XMDARNLV3RD6B3LBWTZ6AYGNFLZ2HSGOY4O4DTILYYLE52K66ZHSMWWAOOV4PHONHVJXWGUDCGEG5ARGILWI3VMRWRGENWSDVVLMLAHTQU4TTOV2W3ZEHMWYA2I66N54S3HFLKO3J7WOOG6TV2ZGO3ZVQ7SBEZ36W4FGFEQO26MQ"
+			},
+			"device": {
+				"deviceId": "amzn1.ask.device.AHFZTJ2KCRGA6NAMNGMYQMX72XFOZNMERBDWTATJIB7TWUDZ442SAHPFFLVXSARRTAJIHHE3PWGS7QLDZBBPRODJAMWQWDAVIC2USLDWEVC4S27FPFQSRUVVOJ2D5OGILPQAXPLQUORANGMAXRH4M6VUIGHQ",
+				"supportedInterfaces": {
+					"AudioPlayer": {},
+					"Display": {
+						"templateVersion": "1.0",
+						"markupVersion": "1.0"
+					}
+				}
+			},
+			"apiEndpoint": "https://api.eu.amazonalexa.com",
+			"apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmNjMDc5MjRlLTU1MTktNGJlOS04NTRmLWVlYWYwNzIwYTRkYiIsImV4cCI6MTUyODI5ODIzNywiaWF0IjoxNTI4Mjk0NjM3LCJuYmYiOjE1MjgyOTQ2MzcsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUhGWlRKMktDUkdBNk5BTU5HTVlRTVg3MlhGT1pOTUVSQkRXVEFUSklCN1RXVURaNDQyU0FIUEZGTFZYU0FSUlRBSklISEUzUFdHUzdRTERaQkJQUk9ESkFNV1FXREFWSUMyVVNMRFdFVkM0UzI3RlBGUVNSVVZWT0oyRDVPR0lMUFFBWFBMUVVPUkFOR01BWFJINE02VlVJR0hRIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUZIRzNaVFVTTVpSTzNFTEQzV1JWT1E0VFVHU1hCTkpVTTRYTURBUk5MVjNSRDZCM0xCV1RaNkFZR05GTFoySFNHT1k0TzREVElMWVlMRTUySzY2WkhTTVdXQU9PVjRQSE9OSFZKWFdHVURDR0VHNUFSR0lMV0kzVk1SV1JHRU5XU0RWVkxNTEFIVFFVNFRUT1YyVzNaRUhNV1lBMkk2Nk41NFMzSEZMS08zSjdXT09HNlRWMlpHTzNaVlE3U0JFWjM2VzRGR0ZFUU8yNk1RIn19.YSg3R7TvaMnj8MSfk978IdhR2gzzjFlsZT6n0LU7j6DLZJkI_AF_we2zxAxcjvdm0Uyc2Ga_bttNwQoxN2mvb3GyklnIMzf9M5FOQydlt-h2umtjzJ-qJMwW3esY9Jylxjr2oe9_Z52O1l94mIbW9bYBb28FmPgrVeG50pMmEWelVRde-8e7bFmH3icxYQSh6sUn5bxp1mREml60z3_FHO4hpJDdeiSjqY42f3nPuDx3QM4qa1mxl4okuQHmKmNHFuSs5Np_36SZTEm2JfehtrOF9Z9LvZOoFstSQdBbw6p09axwwof5XTynvdj_COl14FDX5TfOi8El6oI1pdteKg"
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.3b29528f-0ee4-4a9d-85a3-56dd95f6f409",
+		"timestamp": "2018-06-06T14:17:17Z",
+		"locale": "en-IN",
+		"intent": {
+			"name": "GetMovieDetails",
+			"confirmationStatus": "CONFIRMED",
+			"slots": {
+				"CITY": {
+					"name": "CITY",
+					"value": "Nasik",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.AMAZON.City",
+								"status": {
+									"code": "ER_SUCCESS_MATCH"
+								},
+								"values": [
+									{
+										"value": {
+											"name": "nashik",
+											"id": "229a19386e01f1ddd4049e3deffda1e7"
+										}
+									}
+								]
+							}
+						]
+					},
+					"confirmationStatus": "NONE"
+				},
+				"THEATRE": {
+					"name": "THEATRE",
+					"confirmationStatus": "NONE"
+				},
+				"MULTIPLEX": {
+					"name": "MULTIPLEX",
+					"confirmationStatus": "NONE"
+				},
+				"NAME": {
+					"name": "NAME",
+					"value": "dhishum",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.MovieName",
+								"status": {
+									"code": "ER_SUCCESS_NO_MATCH"
+								}
+							}
+						]
+					},
+					"confirmationStatus": "NONE"
+				}
+			}
+		},
+		"dialogState": "COMPLETED"
+	}
+}

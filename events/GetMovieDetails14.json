@@ -1,0 +1,890 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": false,
+		"sessionId": "amzn1.echo-api.session.bca76102-d734-4e62-ac89-1720ab35aab9",
+		"application": {
+			"applicationId": "amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db"
+		},
+		"attributes": {
+			"all_data": [
+				{
+					"show_time": "08:45 AM",
+					"theatre_name": "Maxus Cinemas: Bhayander",
+					"class": "morning",
+					"min_price": "80.00",
+					"time_code": "0845",
+					"max_price": "118.00"
+				},
+				{
+					"show_time": "12:00 PM",
+					"theatre_name": "Maxus Cinemas: Bhayander",
+					"class": "afternoon",
+					"min_price": "200.00",
+					"time_code": "1200",
+					"max_price": "200.00"
+				},
+				{
+					"show_time": "01:45 PM",
+					"theatre_name": "Maxus Cinemas: Bhayander",
+					"class": "afternoon",
+					"min_price": "150.00",
+					"time_code": "1345",
+					"max_price": "180.00"
+				},
+				{
+					"show_time": "05:30 PM",
+					"theatre_name": "Maxus Cinemas: Bhayander",
+					"class": "evening",
+					"min_price": "250.00",
+					"time_code": "1730",
+					"max_price": "250.00"
+				},
+				{
+					"show_time": "10:30 PM",
+					"theatre_name": "Maxus Cinemas: Bhayander",
+					"class": "night",
+					"min_price": "170.00",
+					"time_code": "2230",
+					"max_price": "190.00"
+				},
+				{
+					"show_time": "09:00 AM",
+					"theatre_name": "INOX: Korum Mall, Eastern Express Highway, Thane",
+					"class": "morning",
+					"min_price": "90.00",
+					"time_code": "0900",
+					"max_price": "160.00"
+				},
+				{
+					"show_time": "05:20 PM",
+					"theatre_name": "INOX: Korum Mall, Eastern Express Highway, Thane",
+					"class": "evening",
+					"min_price": "150.00",
+					"time_code": "1720",
+					"max_price": "240.00"
+				},
+				{
+					"show_time": "10:55 PM",
+					"theatre_name": "INOX: Korum Mall, Eastern Express Highway, Thane",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "2255",
+					"max_price": "300.00"
+				},
+				{
+					"show_time": "09:00 AM",
+					"theatre_name": "INOX: Inorbit Mall, Malad (W)",
+					"class": "morning",
+					"min_price": "118.00",
+					"time_code": "0900",
+					"max_price": "118.00"
+				},
+				{
+					"show_time": "02:50 PM",
+					"theatre_name": "INOX: Inorbit Mall, Malad (W)",
+					"class": "afternoon",
+					"min_price": "170.00",
+					"time_code": "1450",
+					"max_price": "190.00"
+				},
+				{
+					"show_time": "08:25 PM",
+					"theatre_name": "INOX: Inorbit Mall, Malad (W)",
+					"class": "night",
+					"min_price": "190.00",
+					"time_code": "2025",
+					"max_price": "210.00"
+				},
+				{
+					"show_time": "09:00 AM",
+					"theatre_name": "INOX: Neelyog, Ghatkopar (E)",
+					"class": "morning",
+					"min_price": "90.00",
+					"time_code": "0900",
+					"max_price": "90.00"
+				},
+				{
+					"show_time": "05:10 PM",
+					"theatre_name": "INOX: Neelyog, Ghatkopar (E)",
+					"class": "evening",
+					"min_price": "150.00",
+					"time_code": "1710",
+					"max_price": "150.00"
+				},
+				{
+					"show_time": "09:05 AM",
+					"theatre_name": "INOX: Glomax Mall, Kharghar",
+					"class": "morning",
+					"min_price": "90.00",
+					"time_code": "0905",
+					"max_price": "90.00"
+				},
+				{
+					"show_time": "02:40 PM",
+					"theatre_name": "INOX: Glomax Mall, Kharghar",
+					"class": "afternoon",
+					"min_price": "150.00",
+					"time_code": "1440",
+					"max_price": "150.00"
+				},
+				{
+					"show_time": "07:50 PM",
+					"theatre_name": "INOX: Glomax Mall, Kharghar",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "1950",
+					"max_price": "150.00"
+				},
+				{
+					"show_time": "09:20 AM",
+					"theatre_name": "INOX: Raghuleela Mall, Kandivali (W)",
+					"class": "morning",
+					"min_price": "118.00",
+					"time_code": "0920",
+					"max_price": "118.00"
+				},
+				{
+					"show_time": "05:40 PM",
+					"theatre_name": "INOX: Raghuleela Mall, Kandivali (W)",
+					"class": "evening",
+					"min_price": "180.00",
+					"time_code": "1740",
+					"max_price": "180.00"
+				},
+				{
+					"show_time": "10:55 PM",
+					"theatre_name": "INOX: Raghuleela Mall, Kandivali (W)",
+					"class": "night",
+					"min_price": "180.00",
+					"time_code": "2255",
+					"max_price": "180.00"
+				},
+				{
+					"show_time": "09:35 AM",
+					"theatre_name": "INOX Laserplex: CR2, Nariman Point",
+					"class": "morning",
+					"min_price": "118.00",
+					"time_code": "0935",
+					"max_price": "160.00"
+				},
+				{
+					"show_time": "03:50 PM",
+					"theatre_name": "INOX Laserplex: CR2, Nariman Point",
+					"class": "afternoon",
+					"min_price": "290.00",
+					"time_code": "1550",
+					"max_price": "340.00"
+				},
+				{
+					"show_time": "09:30 PM",
+					"theatre_name": "INOX Laserplex: CR2, Nariman Point",
+					"class": "night",
+					"min_price": "700.00",
+					"time_code": "2130",
+					"max_price": "700.00"
+				},
+				{
+					"show_time": "10:00 AM",
+					"theatre_name": "Maxus Cinemas: Saki Naka",
+					"class": "morning",
+					"min_price": "150.00",
+					"time_code": "1000",
+					"max_price": "150.00"
+				},
+				{
+					"show_time": "10:30 AM",
+					"theatre_name": "INOX: Raghuleela Mall, Vashi",
+					"class": "morning",
+					"min_price": "118.00",
+					"time_code": "1030",
+					"max_price": "118.00"
+				},
+				{
+					"show_time": "02:20 PM",
+					"theatre_name": "INOX: Raghuleela Mall, Vashi",
+					"class": "afternoon",
+					"min_price": "170.00",
+					"time_code": "1420",
+					"max_price": "190.00"
+				},
+				{
+					"show_time": "07:55 PM",
+					"theatre_name": "INOX: Raghuleela Mall, Vashi",
+					"class": "night",
+					"min_price": "170.00",
+					"time_code": "1955",
+					"max_price": "190.00"
+				},
+				{
+					"show_time": "10:45 PM",
+					"theatre_name": "INOX: Raghuleela Mall, Vashi",
+					"class": "night",
+					"min_price": "170.00",
+					"time_code": "2245",
+					"max_price": "190.00"
+				},
+				{
+					"show_time": "10:40 AM",
+					"theatre_name": "INOX: Worli, Atria Mall",
+					"class": "morning",
+					"min_price": "300.00",
+					"time_code": "1040",
+					"max_price": "300.00"
+				},
+				{
+					"show_time": "04:25 PM",
+					"theatre_name": "INOX: Worli, Atria Mall",
+					"class": "evening",
+					"min_price": "700.00",
+					"time_code": "1625",
+					"max_price": "700.00"
+				},
+				{
+					"show_time": "07:20 PM",
+					"theatre_name": "INOX: Worli, Atria Mall",
+					"class": "night",
+					"min_price": "800.00",
+					"time_code": "1920",
+					"max_price": "800.00"
+				},
+				{
+					"show_time": "10:15 PM",
+					"theatre_name": "INOX: Worli, Atria Mall",
+					"class": "night",
+					"min_price": "800.00",
+					"time_code": "2215",
+					"max_price": "800.00"
+				},
+				{
+					"show_time": "11:00 AM",
+					"theatre_name": "INOX: R-City, Ghatkopar",
+					"class": "morning",
+					"min_price": "90.00",
+					"time_code": "1100",
+					"max_price": "118.00"
+				},
+				{
+					"show_time": "12:45 PM",
+					"theatre_name": "INOX: R-City, Ghatkopar",
+					"class": "afternoon",
+					"min_price": "350.00",
+					"time_code": "1245",
+					"max_price": "350.00"
+				},
+				{
+					"show_time": "05:05 PM",
+					"theatre_name": "INOX: R-City, Ghatkopar",
+					"class": "evening",
+					"min_price": "180.00",
+					"time_code": "1705",
+					"max_price": "210.00"
+				},
+				{
+					"show_time": "08:00 PM",
+					"theatre_name": "INOX: R-City, Ghatkopar",
+					"class": "night",
+					"min_price": "180.00",
+					"time_code": "2000",
+					"max_price": "430.00"
+				},
+				{
+					"show_time": "10:45 PM",
+					"theatre_name": "INOX: R-City, Ghatkopar",
+					"class": "night",
+					"min_price": "180.00",
+					"time_code": "2245",
+					"max_price": "210.00"
+				},
+				{
+					"show_time": "11:00 AM",
+					"theatre_name": "K Movie Star Multiplex: Vasai (W)",
+					"class": "morning",
+					"min_price": "100.00",
+					"time_code": "1100",
+					"max_price": "120.00"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "K Movie Star Multiplex: Vasai (W)",
+					"class": "night",
+					"min_price": "130.00",
+					"time_code": "2200",
+					"max_price": "150.00"
+				},
+				{
+					"show_time": "11:40 AM",
+					"theatre_name": "INOX: Palm Beach Galleria Mall, Navi Mumbai",
+					"class": "morning",
+					"min_price": "118.00",
+					"time_code": "1140",
+					"max_price": "200.00"
+				},
+				{
+					"show_time": "11:45 AM",
+					"theatre_name": "INOX: Thakur Movie, Kandivali (E)",
+					"class": "morning",
+					"min_price": "60.00",
+					"time_code": "1145",
+					"max_price": "118.00"
+				},
+				{
+					"show_time": "11:55 AM",
+					"theatre_name": "INOX: Metro Mall Junction, Kalyan (E)",
+					"class": "morning",
+					"min_price": "90.00",
+					"time_code": "1155",
+					"max_price": "90.00"
+				},
+				{
+					"show_time": "05:35 PM",
+					"theatre_name": "INOX: Metro Mall Junction, Kalyan (E)",
+					"class": "evening",
+					"min_price": "118.00",
+					"time_code": "1735",
+					"max_price": "150.00"
+				},
+				{
+					"show_time": "12:00 PM",
+					"theatre_name": "Metro INOX Cinemas: Marine Lines",
+					"class": "afternoon",
+					"min_price": "200.00",
+					"time_code": "1200",
+					"max_price": "200.00"
+				},
+				{
+					"show_time": "06:50 PM",
+					"theatre_name": "Metro INOX Cinemas: Marine Lines",
+					"class": "evening",
+					"min_price": "200.00",
+					"time_code": "1850",
+					"max_price": "200.00"
+				},
+				{
+					"show_time": "10:20 PM",
+					"theatre_name": "Metro INOX Cinemas: Marine Lines",
+					"class": "night",
+					"min_price": "200.00",
+					"time_code": "2220",
+					"max_price": "200.00"
+				},
+				{
+					"show_time": "12:15 PM",
+					"theatre_name": "Mukta A2 Cinemas: Jai Hind, Lalbaugh",
+					"class": "afternoon",
+					"min_price": "100.00",
+					"time_code": "1215",
+					"max_price": "100.00"
+				},
+				{
+					"show_time": "02:00 PM",
+					"theatre_name": "Maxus Cinemas: Borivali (W)",
+					"class": "afternoon",
+					"min_price": "150.00",
+					"time_code": "1400",
+					"max_price": "180.00"
+				},
+				{
+					"show_time": "11:00 PM",
+					"theatre_name": "Maxus Cinemas: Borivali (W)",
+					"class": "night",
+					"min_price": "250.00",
+					"time_code": "2300",
+					"max_price": "250.00"
+				},
+				{
+					"show_time": "03:15 PM",
+					"theatre_name": "Natraj Cinema: Chembur",
+					"class": "afternoon",
+					"min_price": "60.00",
+					"time_code": "1515",
+					"max_price": "70.00"
+				},
+				{
+					"show_time": "06:15 PM",
+					"theatre_name": "Natraj Cinema: Chembur",
+					"class": "evening",
+					"min_price": "60.00",
+					"time_code": "1815",
+					"max_price": "70.00"
+				},
+				{
+					"show_time": "04:30 PM",
+					"theatre_name": "Star Big Cinemas: Ambarnath (W)",
+					"class": "evening",
+					"min_price": "118.00",
+					"time_code": "1630",
+					"max_price": "118.00"
+				},
+				{
+					"show_time": "05:00 PM",
+					"theatre_name": "INOX: Thakur Mall, Dahisar",
+					"class": "evening",
+					"min_price": "150.00",
+					"time_code": "1700",
+					"max_price": "240.00"
+				},
+				{
+					"show_time": "10:55 PM",
+					"theatre_name": "INOX: Thakur Mall, Dahisar",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "2255",
+					"max_price": "150.00"
+				},
+				{
+					"show_time": "05:30 PM",
+					"theatre_name": "Tilak Cineplex: Dombivali",
+					"class": "evening",
+					"min_price": "118.00",
+					"time_code": "1730",
+					"max_price": "140.00"
+				},
+				{
+					"show_time": "06:45 PM",
+					"theatre_name": "PVR: Nirmal Lifestyle, Mulund (W)",
+					"class": "evening",
+					"min_price": "110.00",
+					"time_code": "1845",
+					"max_price": "110.00"
+				},
+				{
+					"show_time": "09:45 PM",
+					"theatre_name": "PVR: Nirmal Lifestyle, Mulund (W)",
+					"class": "night",
+					"min_price": "110.00",
+					"time_code": "2145",
+					"max_price": "110.00"
+				},
+				{
+					"show_time": "07:00 PM",
+					"theatre_name": "24 Karat: Jogeshwari",
+					"class": "night",
+					"min_price": "100.00",
+					"time_code": "1900",
+					"max_price": "650.00"
+				},
+				{
+					"show_time": "07:00 PM",
+					"theatre_name": "Cinemax: Infiniti Mall, Malad (W)",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "1900",
+					"max_price": "300.00"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "Cinemax: Infiniti Mall, Malad (W)",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "2200",
+					"max_price": "300.00"
+				},
+				{
+					"show_time": "07:05 PM",
+					"theatre_name": "Fun Cinemas: K Star Mall, Chembur",
+					"class": "night",
+					"min_price": "100.00",
+					"time_code": "1905",
+					"max_price": "100.00"
+				},
+				{
+					"show_time": "10:15 PM",
+					"theatre_name": "Fun Cinemas: K Star Mall, Chembur",
+					"class": "night",
+					"min_price": "100.00",
+					"time_code": "2215",
+					"max_price": "100.00"
+				},
+				{
+					"show_time": "07:10 PM",
+					"theatre_name": "Cinepolis: Viviana Mall, Thane",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "1910",
+					"max_price": "190.00"
+				},
+				{
+					"show_time": "10:05 PM",
+					"theatre_name": "Cinepolis: Viviana Mall, Thane",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "2205",
+					"max_price": "190.00"
+				},
+				{
+					"show_time": "07:15 PM",
+					"theatre_name": "Cinepolis: Fun Republic Mall, Andheri (W)",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "1915",
+					"max_price": "150.00"
+				},
+				{
+					"show_time": "07:15 PM",
+					"theatre_name": "PVR: Orion Mall, Panvel",
+					"class": "night",
+					"min_price": "160.00",
+					"time_code": "1915",
+					"max_price": "280.00"
+				},
+				{
+					"show_time": "07:15 PM",
+					"theatre_name": "Cinemax: Eternity Mall, Thane",
+					"class": "night",
+					"min_price": "118.00",
+					"time_code": "1915",
+					"max_price": "220.00"
+				},
+				{
+					"show_time": "07:30 PM",
+					"theatre_name": "G7 Multiplex: Bandra (W)",
+					"class": "night",
+					"min_price": "115.00",
+					"time_code": "1930",
+					"max_price": "115.00"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "G7 Multiplex: Bandra (W)",
+					"class": "night",
+					"min_price": "115.00",
+					"time_code": "2200",
+					"max_price": "115.00"
+				},
+				{
+					"show_time": "07:30 PM",
+					"theatre_name": "PVR: Lodha Xperia, Palava",
+					"class": "night",
+					"min_price": "200.00",
+					"time_code": "1930",
+					"max_price": "300.00"
+				},
+				{
+					"show_time": "10:30 PM",
+					"theatre_name": "PVR: Lodha Xperia, Palava",
+					"class": "night",
+					"min_price": "200.00",
+					"time_code": "2230",
+					"max_price": "300.00"
+				},
+				{
+					"show_time": "07:40 PM",
+					"theatre_name": "Miraj Fun Fiesta Cinemas: Nallasopara",
+					"class": "night",
+					"min_price": "100.00",
+					"time_code": "1940",
+					"max_price": "180.00"
+				},
+				{
+					"show_time": "07:45 PM",
+					"theatre_name": "Movietime: Malad",
+					"class": "night",
+					"min_price": "100.00",
+					"time_code": "1945",
+					"max_price": "100.00"
+				},
+				{
+					"show_time": "07:50 PM",
+					"theatre_name": "Cinepolis: VIP Viviana Mall, Thane",
+					"class": "night",
+					"min_price": "600.00",
+					"time_code": "1950",
+					"max_price": "600.00"
+				},
+				{
+					"show_time": "10:40 PM",
+					"theatre_name": "Cinepolis: VIP Viviana Mall, Thane",
+					"class": "night",
+					"min_price": "600.00",
+					"time_code": "2240",
+					"max_price": "600.00"
+				},
+				{
+					"show_time": "07:50 PM",
+					"theatre_name": "Carnival: Annex Mall, Borivali",
+					"class": "night",
+					"min_price": "220.00",
+					"time_code": "1950",
+					"max_price": "220.00"
+				},
+				{
+					"show_time": "10:35 PM",
+					"theatre_name": "Carnival: Annex Mall, Borivali",
+					"class": "night",
+					"min_price": "180.00",
+					"time_code": "2235",
+					"max_price": "180.00"
+				},
+				{
+					"show_time": "08:00 PM",
+					"theatre_name": "PVR: Citi Mall, Andheri (W)",
+					"class": "night",
+					"min_price": "200.00",
+					"time_code": "2000",
+					"max_price": "400.00"
+				},
+				{
+					"show_time": "09:45 PM",
+					"theatre_name": "PVR: Citi Mall, Andheri (W)",
+					"class": "night",
+					"min_price": "200.00",
+					"time_code": "2145",
+					"max_price": "400.00"
+				},
+				{
+					"show_time": "08:15 PM",
+					"theatre_name": "Carnival: Dreams Mall, Bhandup",
+					"class": "night",
+					"min_price": "75.00",
+					"time_code": "2015",
+					"max_price": "118.00"
+				},
+				{
+					"show_time": "11:00 PM",
+					"theatre_name": "Carnival: Dreams Mall, Bhandup",
+					"class": "night",
+					"min_price": "75.00",
+					"time_code": "2300",
+					"max_price": "118.00"
+				},
+				{
+					"show_time": "08:30 PM",
+					"theatre_name": "Carnival: Funcity, Ulhasnagar",
+					"class": "night",
+					"min_price": "118.00",
+					"time_code": "2030",
+					"max_price": "118.00"
+				},
+				{
+					"show_time": "08:35 PM",
+					"theatre_name": "Carnival: Sangam, Andheri",
+					"class": "night",
+					"min_price": "110.00",
+					"time_code": "2035",
+					"max_price": "360.00"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "Cinemax: R Odeon Mall, Ghatkopar (E)",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "2200",
+					"max_price": "180.00"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "Carnival: Moviestar, Goregaon",
+					"class": "night",
+					"min_price": "75.00",
+					"time_code": "2200",
+					"max_price": "90.00"
+				},
+				{
+					"show_time": "10:00 PM",
+					"theatre_name": "Miraj Dattani Cinemas: Vasai",
+					"class": "night",
+					"min_price": "100.00",
+					"time_code": "2200",
+					"max_price": "240.00"
+				},
+				{
+					"show_time": "10:10 PM",
+					"theatre_name": "Cinepolis: Magnet Mall, Bhandup (W)",
+					"class": "night",
+					"min_price": "110.00",
+					"time_code": "2210",
+					"max_price": "200.00"
+				},
+				{
+					"show_time": "10:15 PM",
+					"theatre_name": "PVR: Dynamix, Juhu",
+					"class": "night",
+					"min_price": "250.00",
+					"time_code": "2215",
+					"max_price": "250.00"
+				},
+				{
+					"show_time": "10:15 PM",
+					"theatre_name": "PVR: Growel, Kandivali (E)",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "2215",
+					"max_price": "300.00"
+				},
+				{
+					"show_time": "10:15 PM",
+					"theatre_name": "PVR: Market City, Kurla (Premiere)",
+					"class": "night",
+					"min_price": "160.00",
+					"time_code": "2215",
+					"max_price": "200.00"
+				},
+				{
+					"show_time": "10:30 PM",
+					"theatre_name": "Cinemax: Wonder Mall, Thane",
+					"class": "night",
+					"min_price": "100.00",
+					"time_code": "2230",
+					"max_price": "100.00"
+				},
+				{
+					"show_time": "10:30 PM",
+					"theatre_name": "Movietime Cubic Mall: Chembur",
+					"class": "night",
+					"min_price": "110.00",
+					"time_code": "2230",
+					"max_price": "110.00"
+				},
+				{
+					"show_time": "10:40 PM",
+					"theatre_name": "Carnival: SM5, Kalyan",
+					"class": "night",
+					"min_price": "75.00",
+					"time_code": "2240",
+					"max_price": "150.00"
+				},
+				{
+					"show_time": "10:45 PM",
+					"theatre_name": "Carnival: IMAX, Wadala",
+					"class": "night",
+					"min_price": "75.00",
+					"time_code": "2245",
+					"max_price": "250.00"
+				},
+				{
+					"show_time": "10:45 PM",
+					"theatre_name": "Sterling Cineplex: Fort",
+					"class": "night",
+					"min_price": "120.00",
+					"time_code": "2245",
+					"max_price": "200.00"
+				},
+				{
+					"show_time": "10:55 PM",
+					"theatre_name": "CinemaStar: High Street Mall, Thane",
+					"class": "night",
+					"min_price": "110.00",
+					"time_code": "2255",
+					"max_price": "110.00"
+				},
+				{
+					"show_time": "11:00 PM",
+					"theatre_name": "Movietime: The Hub, Goregaon",
+					"class": "night",
+					"min_price": "110.00",
+					"time_code": "2300",
+					"max_price": "110.00"
+				},
+				{
+					"show_time": "11:00 PM",
+					"theatre_name": "PVR ICON: Oberoi Mall, Goregaon (E)",
+					"class": "night",
+					"min_price": "150.00",
+					"time_code": "2300",
+					"max_price": "350.00"
+				},
+				{
+					"show_time": "11:05 PM",
+					"theatre_name": "Carnival: Little World Mall, Kharghar",
+					"class": "night",
+					"min_price": "75.00",
+					"time_code": "2305",
+					"max_price": "250.00"
+				}
+			],
+			"lastSpeech": "These are the multiplexes, Metro INOX Cinemas, INOX Laserplex, Cinepolis, Carnival, 24 Karat, PVR, G7 Multiplex, Tilak Cineplex, Miraj Dattani Cinemas, Movietime, and PVR ICON. Please select one out of these."
+		},
+		"user": {
+			"userId": "amzn1.ask.account.AFHG3ZTUSMZRO3ELD3WRVOQ4TUGSXBNJUM4XMDARNLV3RD6B3LBWTZ6AYGNFLZ2HSGOY4O4DTILYYLE52K66ZHSMWWAOOV4PHONHVJXWGUDCGEG5ARGILWI3VMRWRGENWSDVVLMLAHTQU4TTOV2W3ZEHMWYA2I66N54S3HFLKO3J7WOOG6TV2ZGO3ZVQ7SBEZ36W4FGFEQO26MQ"
+		}
+	},
+	"context": {
+		"AudioPlayer": {
+			"playerActivity": "IDLE"
+		},
+		"Display": {
+			"token": ""
+		},
+		"System": {
+			"application": {
+				"applicationId": "amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db"
+			},
+			"user": {
+				"userId": "amzn1.ask.account.AFHG3ZTUSMZRO3ELD3WRVOQ4TUGSXBNJUM4XMDARNLV3RD6B3LBWTZ6AYGNFLZ2HSGOY4O4DTILYYLE52K66ZHSMWWAOOV4PHONHVJXWGUDCGEG5ARGILWI3VMRWRGENWSDVVLMLAHTQU4TTOV2W3ZEHMWYA2I66N54S3HFLKO3J7WOOG6TV2ZGO3ZVQ7SBEZ36W4FGFEQO26MQ"
+			},
+			"device": {
+				"deviceId": "amzn1.ask.device.AHFZTJ2KCRGA6NAMNGMYQMX72XFOZNMERBDWTATJIB7TWUDZ442SAHPFFLVXSARRTAJIHHE3PWGS7QLDZBBPRODJAMWQWDAVIC2USLDWEVC4S27FPFQSRUVVOJ2D5OGILPQAXPLQUORANGMAXRH4M6VUIGHQ",
+				"supportedInterfaces": {
+					"AudioPlayer": {},
+					"Display": {
+						"templateVersion": "1.0",
+						"markupVersion": "1.0"
+					}
+				}
+			},
+			"apiEndpoint": "https://api.eu.amazonalexa.com",
+			"apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmNjMDc5MjRlLTU1MTktNGJlOS04NTRmLWVlYWYwNzIwYTRkYiIsImV4cCI6MTUyODI5NTYwMCwiaWF0IjoxNTI4MjkyMDAwLCJuYmYiOjE1MjgyOTIwMDAsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUhGWlRKMktDUkdBNk5BTU5HTVlRTVg3MlhGT1pOTUVSQkRXVEFUSklCN1RXVURaNDQyU0FIUEZGTFZYU0FSUlRBSklISEUzUFdHUzdRTERaQkJQUk9ESkFNV1FXREFWSUMyVVNMRFdFVkM0UzI3RlBGUVNSVVZWT0oyRDVPR0lMUFFBWFBMUVVPUkFOR01BWFJINE02VlVJR0hRIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUZIRzNaVFVTTVpSTzNFTEQzV1JWT1E0VFVHU1hCTkpVTTRYTURBUk5MVjNSRDZCM0xCV1RaNkFZR05GTFoySFNHT1k0TzREVElMWVlMRTUySzY2WkhTTVdXQU9PVjRQSE9OSFZKWFdHVURDR0VHNUFSR0lMV0kzVk1SV1JHRU5XU0RWVkxNTEFIVFFVNFRUT1YyVzNaRUhNV1lBMkk2Nk41NFMzSEZMS08zSjdXT09HNlRWMlpHTzNaVlE3U0JFWjM2VzRGR0ZFUU8yNk1RIn19.RKFn13E2dNMU5oThGM2d3rJqrLSC7YqPfzmc38zVLOqrF9RiHXpCXknfOrcAESN851f3-ncbNT9vZfvN6Iy_0n3yTz3o0wHrfD3Psag1gEkJ3jm6ff2rifx8lipp25jp-1DTIQ7QJpABQZ-wqHDgOh4er6Gj20RVdypWQBot0v41MKYmSP53yVMud3F_bERJFtmuKHPxKGY08gD_BeQOHRn09NfxkepVbHAs88BqNJW5_BkjXvkoeIjaoIwrvz5IlvzeyF656DosyeGjlzCq7xmikmTAxKvPZMoG3PvKeAzkmFsMQ0bh7bnuiczjdYf9ROUpvysel0GeHglbitXQ3g"
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.8be0bdec-be91-48de-ae0b-ae15c215ce52",
+		"timestamp": "2018-06-06T13:33:20Z",
+		"locale": "en-IN",
+		"intent": {
+			"name": "GetMovieDetails",
+			"confirmationStatus": "CONFIRMED",
+			"slots": {
+				"CITY": {
+					"name": "CITY",
+					"value": "mumbai",
+					"confirmationStatus": "CONFIRMED"
+				},
+				"THEATRE": {
+					"name": "THEATRE",
+					"confirmationStatus": "NONE"
+				},
+				"MULTIPLEX": {
+					"name": "MULTIPLEX",
+					"value": "my try Knox",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.MultiplexType",
+								"status": {
+									"code": "ER_SUCCESS_NO_MATCH"
+								}
+							}
+						]
+					},
+					"confirmationStatus": "NONE"
+				},
+				"NAME": {
+					"name": "NAME",
+					"value": "raazi",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.cc07924e-5519-4be9-854f-eeaf0720a4db.MovieName",
+								"status": {
+									"code": "ER_SUCCESS_MATCH"
+								},
+								"values": [
+									{
+										"value": {
+											"name": "raazi",
+											"id": "de5f29c6bc33b7b6d885a0168be271a5"
+										}
+									}
+								]
+							}
+						]
+					},
+					"confirmationStatus": "CONFIRMED"
+				}
+			}
+		},
+		"dialogState": "COMPLETED"
+	}
+}

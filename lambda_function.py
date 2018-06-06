@@ -458,7 +458,7 @@ def GetMovieDetails(event) :
 		if len(show_details) > 0 : 
 			output = "Here are the show timings ... " + outputSpeech
 		else : 
-			output = "Sorry I couldn't find anything for " + movie_name + " at " + multiplex
+			output = "Sorry I couldn't find anything for " + movie_name + " at " + ui_multiplex
 		return response_plain_text(
 				output,
 				True, 
@@ -573,8 +573,10 @@ def getOSandCC(results):
 		cardContent += result[0].strip() + "\n"
 		if i < len(results) - 1 and len(results) > 0:
 			outputSpeech += ", "
+			cardContent += ", "
 		if i == len(results) - 2 and i != 0 :
 			outputSpeech += "and "
+			cardContent += "and "
 		i += 1
 	outputSpeech += "."
 
@@ -722,8 +724,8 @@ def response_plain_text(output, endsession, attributes, title, cardContent, repr
 			},
 			'card' : {
 				'type' : 'Simple',
-				'title' : "title",
-				'content' : "cardContent"    
+				'title' : title,
+				'content' : cardContent    
 			},
 			'repromt' : {
 				'outputSpeech' : {
@@ -785,5 +787,5 @@ def dialog_elicit_slot(output, slotToElicit, city_name, movie_name, attributes, 
 	}
 
 def remove_special_characters(s):
- 	return re.sub(r'[^A-Za-z0-9.,?''"":() ]+', '', s)
+ 	return re.sub(r'[^A-Za-z0-9.,?\'":() ]+', '', s)
 
