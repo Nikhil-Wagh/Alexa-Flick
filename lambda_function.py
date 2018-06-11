@@ -514,7 +514,6 @@ def GetMovieDetails(event) :
 						theatre_name = theatre[:last]
 					else:
 						theatre_name = theatre
-					# theatre_name = theatre[theatre.find(":") + 2: theatre.rfind(",")]
 					outputSpeech += "At " + theatre_name.replace(","," ") + ", "
 					cardContent += theatre + ":: "
 					i = 0
@@ -665,7 +664,6 @@ def do_stop():
 	Messages = [
 		"Good Bye!!"
 	]
-	# TODO: Improve this
 	return response_plain_text(
 			getRandom(Messages),
 			True,
@@ -788,4 +786,47 @@ def dialog_elicit_slot(output, slotToElicit, city_name, movie_name, attributes, 
 
 def remove_special_characters(s):
  	return re.sub(r'[^A-Za-z0-9.,?\'":() ]+', '', s)
+
+
+
+def dialog_elicit_slot(output, slotToElicit, city_name, movie_name, attributes, multiplex = None, confirmationStatus = "CONFIRMED"):
+	return {
+		"version": "1.0",
+		"sessionAttributes": attributes,
+		"response": {
+			"outputSpeech": {
+				"type": "PlainText",
+				"text": output
+			},
+			"shouldEndSession": False,
+			"directives": [
+				{
+					"type": "Dialog.ElicitSlot",
+					"slotToElicit": slotToElicit,
+					"updatedIntent": {
+						"name": "GetMovieDetails",
+						"confirmationStatus": confirmationStatus,
+						"slots": {
+							"CITY": {
+								"name": "CITY",
+								"confirmationStatus": "CONFIRMED" if city_name != None else "NONE",
+								"value": city_name
+							},
+							"NAME": {
+								"name": "NAME",
+								"confirmationStatus": "CONFIRMED" if movie_name != None else "NONE",
+								"value": movie_name
+							},
+							"MULTIPLEX": {
+								"name": "MULTIPLEX",
+								"confirmationStatus": "CONFIRMED" if multiplex != None else "NONE",
+								"value" : multiplex
+							}
+						}
+					}
+				}
+			]
+		}
+	}
+
 
