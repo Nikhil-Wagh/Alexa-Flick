@@ -38,118 +38,7 @@ import random
 from datetime import datetime
 import time
 from difflib import SequenceMatcher
-
-class BookMyShowClient(object):
-	NOW_SHOWING_REGEX = '{"event":"productClick","ecommerce":{"currencyCode":"INR","click":{"actionField":{"list":"Filter Impression:category\\\/now showing"},"products":\[{"name":"(.*?)","id":"(.*?)","category":"(.*?)","variant":"(.*?)","position":(.*?),"dimension13":"(.*?)"}\]}}}'
-	COMING_SOON_REGEX = '{"event":"productClick","ecommerce":{"currencyCode":"INR","click":{"actionField":{"list":"category\\\/coming soon"},"products":{"name":"(.*?)","id":"(.*?)","category":"(.*?)","variant":"(.*?)","position":(.*?),"dimension13":"(.*?)"}}}}'
-	DETAILED_REGEX = '{"VenueCode":"(.*?)","EventCode":"(.*?)","SessionId":(.*?),"ShowTime":"(.*?)","ShowTimeCode":"(.*?)","MinPrice":"(.*?)","MaxPrice":"(.*?)","Availability":"(.*?)","CutOffFlag":"(.*?)","ShowDateTime":"(.*?)","CutOffDateTime":"(.*?)","BestBuy":"(.*?)","ShowDateCode":"(.*?)","IsAtmosEnabled":"(.*?)","SessionUnpaidFlag":"(.*?)","SessionUnpaidQuota":"(.*?)","BestAvailableSeats":(.*?),"Attributes":"(.*?)","SessionCodFlag":"(.*?)","SessionCodQuota":"(.*?)","SessionCopFlag":"(.*?)","SessionCopQuota":"(.*?)","SessionPopUpDesc":"(.*?)","Class":"(.*?)"}'
-	VENUE_REGEX = '{"VenueCode":"(.*?)","VenueName":"(.*?)","VenueAdd":"(.*?)","VenueLegends":"(.*?)","VenueOffers":"(.*?)","SessCount":"(.*?)","AllowSales":"(.*?)","CompCode":"(.*?)","Lat":"(.*?)","Lng":"(.*?)","SubRegCode":"(.*?)","SubRegName":"(.*?)","SubRegSeq":"(.*?)","VenueApp":"(.*?)","IsNewCinema":"(.*?)","IsFoodSales":"(.*?)","IsMultiplex":"(.*?)","IsFullSeatLayout":"(.*?)","Message":"(.*?)","MessageType":"(.*?)","MessageTitle":"(.*?)","CinemaUnpaidFlag":"(.*?)","MTicket":"(.*?)","PopUpDescription":"(.*?)","IsFullLayout":"(.*?)","CinemaCodFlag":"(.*?)","CinemaCopFlag":"(.*?)","TicketCancellation":"(.*?)","VenueInfoMessage":"(.*?)"}'
-	
-
-	def __init__(self, location):
-		self.__location = location.lower()
-		self.__url = "https://in.bookmyshow.com/%s/movies" % self.__location
-		self.__html = None
-
-	def set_url(self, url):
-		self.__url = url
-		self.__html = None
-
-	def __download(self):
-		req = requests.get(self.__url, headers={'User-Agent' : "Magic Browser"})
-		html = req.text
-		# print req.url
-		return html.encode('ascii', 'ignore')
-
-	def compare(self, left, right, movie_name, text) : 
-		i = left
-		j = 0
-		while i < right and j < len(movie_name): 
-			if not movie_name[j].isalnum() : 
-				j += 1
-			if not text[i].isalnum() : 
-				i += 1
-			if (j < len(movie_name) and i < right) and (movie_name[j].isalnum() and text[i].isalnum()) : 
-				if movie_name[j].lower() != text[i].lower() : 
-					return False
-				else : 
-					i += 1
-					j += 1
-
-		return True
-
-	def get_now_showing(self):
-		if not self.__html:
-			self.__html = self.__download()
-		now_showing = re.findall(self.NOW_SHOWING_REGEX, self.__html)
-
-		"""
-		This is done to add the buy URL to now_showing tuple 
-		"""
-		found = set()
-		for index in re.finditer("/buytickets/", self.__html) : 
-			left = index.start() 
-			right = self.__html.find(self.__location, left + 1)
-			# print left, right
-			name = self.__html[left:right]
-			
-			if name not in found : 
-				# print left, right, name
-				found.add(name)
-				for i in range(0, len(now_showing)) : 
-					if self.compare(left + len("/buytickets/"), right, now_showing[i][0], self.__html): 
-						# print "URL::", self.__html[left:self.__html.find("\"", left + 1)]
-						# Url added here
-						now_showing[i] += ("https://in.bookmyshow.com" + self.__html[left:self.__html.find("\"", left + 1)], ) 
-						break
-
-		found.clear()
-
-		image_urls = re.findall("data-src=\"(.*?)\"", self.__html)
-		for url in image_urls : 
-			left = url.find("/large/") + len("/large/")
-			right = len(url) - 35 # 35 characters at the end do not contribute to the name of the movie
-			name = url[left : right]
-			# print name, url, "\n"
-
-			if name not in found : 
-				found.add(name)
-				for i in range(0, len(now_showing)) : 
-					if self.compare(left, right, now_showing[i][0], url) :
-						now_showing[i] += ("https:" + url, )
-						break
-
-		return now_showing
-
-	def get_coming_soon(self):
-		if not self.__html:
-			self.__html = self.__download()
-		coming_soon = re.findall(self.COMING_SOON_REGEX, self.__html)
-		return coming_soon
-
-	def get_details(self):
-		if not self.__html:
-			self.__html = self.__download()
-			
-		venue = re.findall(self.VENUE_REGEX, self.__html)
-		venue_list = dict()
-		for row in venue:
-			venue_list[row[0]] = row[1]		# row[0] is venue code and row[1] is the venue name
-
-
-
-		details = re.findall(self.DETAILED_REGEX, self.__html)
-		show_list = []
-		for row in details:
-			current = {}
-			current['theatre_name'] = venue_list[row[0]]    # add theatre name
-			current['show_time'] = row[3]                   # add time
-			current['time_code'] = row[4]                   # add time code for eg '1700'
-			current['min_price'] = row[5]					# For eg : '60.00'
-			current['max_price'] = row[6]					# For eg : '70.00'
-			current['class'] = row[-1]                      # Morning, afternoon
-			show_list.append(current)
-		return show_list
+from BMS import BookMyShowClient
 
 
 def lambda_handler(event, context):
@@ -192,11 +81,11 @@ def elicit_slot(attributes, outputSpeech, slotToElicit, intent_name, confirmatio
 
 def updateSlots(original, custom):
 	slots = {}
-	for slot_name, slot in original.iteritems():
+	for slot_name, slot in original.items():
 		temp = dict()
 		temp['name'] = slot_name
-		temp['value'] = custom[slot_name]['value'] if custom.has_key(slot_name) else ""
-		print temp
+		temp['value'] = custom[slot_name]['value'] if slot_name in custom else ""
+		print(temp)
 		slots[slot_name] = temp
 	return slots
 
@@ -243,7 +132,7 @@ def on_intent(event):
 	elif intent_name == "AMAZON.RepeatIntent":
 		return do_repeat(event)
 	else : 
-		print "Incorrect response do help"
+		print("Incorrect response do help")
 		return do_help()
 
 # Returns a response to lambda_handler, which contains a list of movies showing in the your area and in your given dialect 
@@ -254,7 +143,7 @@ def GetMoviesNowShowing(intent):
 	city = getSlotValue(intent, 'CITY').lower()
 	language = getSlotValue(intent, 'LANGUAGE').lower()	
 
-	print "User's City:", city, ",\nUser's Language:", language
+	print("User's City:", city, ",\nUser's Language:", language)
 	result = []
 	
 	bms_client = BookMyShowClient(city)
@@ -262,8 +151,8 @@ def GetMoviesNowShowing(intent):
 		now_showing = bms_client.get_now_showing()
 		print_now("Recieved data from remote site at ::", start)
 	except Exception as e: 
-		print e.args 
-		print type(e) 
+		print(e.args) 
+		print(type(e)) 
 		return response_plain_text(
 				"Something went wrong, I'm terribly sorry. Please try again.",
 				True,
@@ -301,7 +190,7 @@ def GetMoviesNowShowing(intent):
 
 def print_now(s, start) : 
 	now = time.time()
-	print s, (now - start)*1000, "milliseconds\n"
+	print(s, (now - start)*1000, "milliseconds\n")
 
 
 # url = https://in.bookmyshow.com/buytickets/bharat-ane-nenu-pune/movie-pune-ET00059033-MT/20180421
@@ -318,14 +207,14 @@ def GetMovieDetails(event) :
 	if 'attributes' in event['session']: 
 		attributes = event['session']['attributes']
 		
-	if not attributes.has_key("all_data"):
+	if 'all_data' not in attributes:
 		bms_client = BookMyShowClient(city)
 		try:
 			now_showing = bms_client.get_now_showing()
 		except Exception as e: # Error
-			print "Error in retrieving data for GetMovieDetails - ", city, movie_name
-			print e.args 
-			print type(e) 
+			print("Error in retrieving data for GetMovieDetails - ", city, movie_name)
+			print(e.args) 
+			print(type(e)) 
 			return response_plain_text(
 					"Something went wrong, I'm terribly sorry",
 					True,
@@ -342,7 +231,7 @@ def GetMovieDetails(event) :
 			if similar(movie[0], movie_name) : 
 				movies_list.append(movie)
 
-		print "Matching movies List :: ", movies_list
+		print("Matching movies List :: ", movies_list)
 		print_now("Movie list created at ::", start)
 
 		# Download pages of specific movies, all those whose name is similar to what user just said
@@ -394,9 +283,9 @@ def GetMovieDetails(event) :
 					del show_details[theatre]
 		else:
 			multiplex_filtered_theatres = set()
-			for theatre, shows in show_details.iteritems():
+			for theatre, shows in show_details.items():
 				multiplex_filtered_theatres.add(theatre)
-			print "Number of theatres that are filtered with respect to MULTIPLEX", len(multiplex_filtered_theatres)
+			print("Number of theatres that are filtered with respect to MULTIPLEX", len(multiplex_filtered_theatres))
 
 			if len(multiplex_filtered_theatres) > 3:
 				i = 0
@@ -429,7 +318,7 @@ def GetMovieDetails(event) :
 		outputSpeech = ""
 		cardContent = ""
 		i = 0 
-		for theatre, shows in show_details.iteritems() : 
+		for theatre, shows in show_details.items() : 
 			# theatre_name = theatre[: theatre.find(",") if theatre.find(",") != -1 else len(theatre)]
 			last = theatre.rfind(",")
 			if last != -1 :
@@ -508,7 +397,7 @@ def GetMovieDetails(event) :
 			cardContent = ""
 			for multiplex in available_multiplexes:
 				show_details = getShowDetails(all_data, multiplex)
-				for theatre, shows in show_details.iteritems(): 
+				for theatre, shows in show_details.items(): 
 					last = theatre.rfind(",")
 					if last != -1 :
 						theatre_name = theatre[:last]
@@ -569,7 +458,7 @@ def getOSandCC(results):
 	i = 0
 	for result in results:
 		outputSpeech += result[0].strip()
-		cardContent += result[0].strip() + "\n"
+		cardContent += result[0].strip()
 		if i < len(results) - 1 and len(results) > 0:
 			outputSpeech += ", "
 			cardContent += ", "
@@ -577,6 +466,7 @@ def getOSandCC(results):
 			outputSpeech += "and "
 			cardContent += "and "
 		i += 1
+		cardContent += "\n"
 	outputSpeech += "."
 
 	return outputSpeech, cardContent
@@ -584,12 +474,14 @@ def getOSandCC(results):
 
 def similar(a, b):
 	total = len(b)
+	if not isinstance(a, str):
+		a = str(a, "utf-8")
+	if not isinstance(b, str):
+		b = str(b, "utf-8")
 	a = a.split(' ')
 	b = b.split(' ')
 	a = [element.lower() for element in a]
 	b = [element.lower() for element in b]
-	a = [filter(str.isalnum, element) for element in a]
-	b = [filter(str.isalnum, element) for element in b]
 	
 	matches = 0
 	for i in b:
@@ -606,15 +498,20 @@ def similar(a, b):
 def getSlotValue(intent, slot):
 	if 'slots' in intent:
 		if slot in intent['slots']:
-			if intent['slots'][slot].has_key('resolutions') :
-				if intent['slots'][slot]['resolutions'].has_key('resolutionsPerAuthority') : 
+			if 'resolutions' in intent['slots'][slot]:
+			# if intent['slots'][slot].has_key('resolutions') :
+				if 'resolutionsPerAuthority' in intent['slots'][slot]['resolutions']:
+				# if intent['slots'][slot]['resolutions'].has_key('resolutionsPerAuthority') : 
 					if len(intent['slots'][slot]['resolutions']['resolutionsPerAuthority']) > 0 :
 						resolutions = intent['slots'][slot]['resolutions']['resolutionsPerAuthority'][0]
-						if resolutions.has_key('values') : 
+						if 'values' in resolutions:
+						# if resolutions.has_key('values') : 
 							if len(resolutions['values']) > 0 :
 								value = resolutions['values'][0]
-								if value.has_key('value') :
-									if value['value'].has_key('name') and len(value['value']['name']) > 0: 
+								if 'value' in value:
+								# if value.has_key('value') :
+									if 'name' in value['value'] and len(value['value']['name']) > 0:
+									# if value['value'].has_key('name') and len(value['value']['name']) > 0: 
 										return value['value']['name']
 			if 'value' in intent['slots'][slot] and len(intent['slots'][slot]['value']) > 0:
 				return intent['slots'][slot]['value']
@@ -707,9 +604,9 @@ def dialog_response(attributes, endsession, updatedIntent = None):
 	}
 
 def response_plain_text(output, endsession, attributes, title, cardContent, repromt = "How can I help you?"):
-	print "\n", output, "\n" 
-	print title
-	print cardContent
+	print("\n", output, "\n") 
+	print(title)
+	print(cardContent)
 	attributes['lastSpeech'] = output
 	""" create a simple json plain text response  """
 	return {
@@ -738,7 +635,7 @@ def response_plain_text(output, endsession, attributes, title, cardContent, repr
 
 def dialog_elicit_slot(output, slotToElicit, city_name, movie_name, attributes, multiplex = None, theatre_name = None, confirmationStatus = "CONFIRMED"):
 	output = remove_special_characters(output)
-	print output, "\n"
+	print(output, "\n")
 	attributes['lastSpeech'] = output
 	return {
 		"version": "1.0",
@@ -786,7 +683,6 @@ def dialog_elicit_slot(output, slotToElicit, city_name, movie_name, attributes, 
 
 def remove_special_characters(s):
  	return re.sub(r'[^A-Za-z0-9.,?\'":() ]+', '', s)
-
 
 
 def dialog_elicit_slot(output, slotToElicit, city_name, movie_name, attributes, multiplex = None, confirmationStatus = "CONFIRMED"):
